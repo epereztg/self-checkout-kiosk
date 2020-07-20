@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+
+  <title>Coffee kiosk</title>
+  <link rel='shortcut icon' type='image/png' href='./img/favicon.ico'>
+
+  <!--icons-->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400'>
+
+  <!--components-->
+  <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.10.0/adyen.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./editlabel.css">
+
+  <!-- <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.7.0/adyen.css"
+integrity="sha384-y1lKqffK5z+ENzddmGIfP3bcMRobxkjDt/9lyPAvV9H3JXbJYxCSD6L8TdyRMCGM"
+crossorigin="anonymous"> -->
+<!-- Adyen provides the SRI hash that you include as the integrity attribute. Refer to our release notes to get the SRI hash for the specific version. https://docs.adyen.com/checkout/release-notes -->
+
+
+</head>
+<body>
+  <div id="app">
+    <template id="appTemplate">
+        <router-view></router-view>
+    </template>
+  </div>
+
+
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.1/vuex.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.min.js'></script>
+  <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+
+
+  <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.10.0/adyen.js"></script>
+  <script src="https://x.klarnacdn.net/kp/lib/v1/api.js" async></script>
+  <!-- <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.7.0/adyen.js"
+  integrity="sha384-aRaL1/W2ASAwZpEWmiHJJAhcc5h+pwDywrocWjla8oCSJaMlY4MC2hOPvAaOcOCq"
+  crossorigin="anonymous"></script> -->
+
+  <script src="./utils.js"></script>
+
+  <script src="./templates/home.js"></script>
+  <script src="./templates/milktype.js"></script>
+  <script src="./templates/size.js"></script>
+  <script src="./templates/capsule.js"></script>
+  <script src="./templates/milkBalance.js"></script>
+  <script src="./templates/reviewOrder.js"></script>
+  <script src="./templates/payment.js"></script>
+  <script src="./templates/orderCompleted.js"></script>
+
+  <script src="./templates/navigation/backButton.js"></script>
+  <script src="./templates/navigation/pageNav.js"></script>
+  <script src="./templates/navigation/baseLayout.js"></script>
+  <script src="./templates/navigation/navigationHelper.js"></script>
+
+  <script src="./kioskUtils.js"></script>
+
+
+  <script src="./script.js"></script>
+  <script src="./demo.js"></script>
+
+</body>
+</html>

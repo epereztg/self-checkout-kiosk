@@ -1,0 +1,23 @@
+{
+  "name": "Adyen Dropin Self-Kiosk ",
+  "description": "A php server example containing our Javascript SDK",
+  "keywords": [
+    "Adyen",
+    "Checkout",
+    "Components",
+    "Dropin",
+    "Web",
+    "JavaScript",
+    "payments"
+  ],
+  "website": "https://www.adyen.com/",
+  "repository": "https://github.com/epereztg/self-kiosk-adyen-dropin",
+  "env": {
+    "MERCHANT_ACCOUNT": {
+      "description": "Your merchant account"
+    },
+    "CHECKOUT_APIKEY": {
+      "description": "Your Checkout API key"
+    }
+  }
+}

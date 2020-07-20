@@ -1,0 +1,10 @@
+/.idea
+.DS_Store
+.env
+*.log
+coverage
+logs
+node_modules/
+npm-debug.log*
+package-lock.json
+originkeys.txt
