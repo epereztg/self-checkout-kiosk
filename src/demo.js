@@ -18,6 +18,9 @@ function showFinalComponent(response) {
   else if (resultCode == "Received"){
     interacContainer.innerHTML = '<div>🔵Payment result:'+resultCode+'<br> Adyen PSP reference (Offer): '+pspRef+'</div>';
   }
+  else if (resultCode == "Cancelled"){
+    interacContainer.innerHTML = '<div>🔵Payment result:'+resultCode+'<br> Adyen PSP reference (Offer): '+pspRef+'</div>';
+  }
   else {
     interacContainer.innerHTML = '<div>❌Payment result'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
   }
@@ -44,9 +47,12 @@ function showFinalResultDropin(response) {
   var pspRef = JSON.parse(response).pspReference;
 
   if (resultCode == "Authorised"){
-
        dropinContainer.innerHTML =
        "<div class=\"adyen-checkout__status adyen-checkout__status--success\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Successful\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Successful<\/span>\r\n<\/div>"
+  }
+  else if (resultCode == "Cancelled"){
+       dropinContainer.innerHTML =
+       "<div class=\"adyen-checkout__status adyen-checkout__status--error\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Cancelled by shopper\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
   }
   else {
       dropinContainer.innerHTML =

@@ -179,6 +179,15 @@ const getPaymentMethods = () =>
     })
     .catch(console.error);
 
+  // Test soft decline
+  //"holderName": "AUTHENTICATION_REQUIRED : 1A",
+  //"RequestedTestAcquirerResponseCode":38
+
+  //INFO: add custom request here to overwrite dropin input
+  //var custom = {
+    //payment request here
+  //}
+
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
     //const paymentsConfig = { ...config };
@@ -203,6 +212,7 @@ const makePayment = (paymentMethod, config = {}) => {
     var obj = paymentRequest
     console.log('paymentRequest: ',obj)
 
+    //INFO: change paymentRequest to your new custom variable
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
@@ -220,14 +230,14 @@ const handlePostMessage = (e) => {
 };
 
 //to be used in redirect type. i.e Alipay, Interac
-const paymentDetails = (paymentData, config = {}) => {
+const paymentDetails = (paymentData, detailsKey, config = {}) => {
     var paymentRequest = paymentData;
 
     if (getActionType() == "redirect") {
         paymentRequest = {
             paymentData: paymentData,
             details: {
-                redirectResult: config
+                [detailsKey]: config
             }
         }
     }
@@ -258,6 +268,23 @@ const paymentLinks = (paymentData) => {
             throw Error(error);
         });
 };
+
+const paymentLinksQR = (paymentData) => {
+    var paymentRequest = paymentData;
+
+    return httpPostnoJson('paymentLinksQR', paymentRequest)
+        .then(response => {
+            if (response.error) throw 'Payment initiation failed';
+
+            //return JSON.parse(response);
+            return response;
+        })
+        .catch(error => {
+            console.log('error on makePayment' + error)
+            throw Error(error);
+        });
+};
+
 
 // Fetches an originKey from the local server
 const getOriginKey = () =>

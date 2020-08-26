@@ -91,7 +91,7 @@ var reviewOrder = `
 
 
   <div id="response"></div>
-  <div id="qrcode"></div>
+  <img id="ItemPreview" src="">
 
   <div class="center text-over-video">
   <!--<div class="custom-select-box">-->

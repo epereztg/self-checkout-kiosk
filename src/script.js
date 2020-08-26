@@ -352,8 +352,10 @@ const Review = {
                 document.getElementById('paybylink').innerHTML = "Click here to open PayByLink url: " + url
                 document.getElementById('paybylink').href = url
                 document.getElementById("paybylink").className = "fake-link";
-                // generatePayByLinkUrlQRCode(url).then(url => {
-                //   document.getElementById("qrcode").innerHTML = qrcode;
+                //generatePayByLinkUrlQR(url)
+                // generatePayByLinkUrlQR(url).then(pngcode => {
+                //   document.getElementById("ItemPreview").src = "data:image/png;base64," + pngcode;
+                //
                 // })
                 //document.getElementById("qrcode").innerHTML = qrcode;
             });
@@ -413,7 +415,7 @@ const Review = {
         const url = window.location.href
         var payload = getPayloadFromUrl(url);
 
-        var detailsKey = localStorage.getItem('detailsKey');
+        var detailsKey = localStorage.getItem('details.key');
         //var payload = getFromUrl(detailsKey); TBD
         var resultCode = getResultCodeFromUrl(url);
         var paymentData = getPaymentData();
@@ -423,7 +425,7 @@ const Review = {
             //var resultFake = JSON.stringify(obj);
             //paymentDetails(uri_enc_paymentData,payload) interacContainer
             //result = "{"pspReference":"851594724227366G","resultCode":"Authorised","merchantReference":"KIOSK-DROPIN","paymentMethod":"alipay","shopperLocale":"en-EN"}"
-            paymentDetails(paymentData, payload) //alipay
+            paymentDetails(paymentData,detailsKey, payload) //alipay
                 .then(result => {
                     //result = resultFake;
                     //localStorage.removeItem('paymentData');

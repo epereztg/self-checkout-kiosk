@@ -100,8 +100,7 @@ var paymentMethodsConfiguration = {
                             if (response.action) {
                                 saveActionType(response.action.type)
                                 savePaymentData(response.action.paymentData)
-
-                                //localStorage.setItem('detailsKey', response.details[0].key)
+                                localStorage.setItem('details.key', response.details[0].key)
                                 // Drop-in handles the action object from the /payments response.
                                 dropin.handleAction(response.action);
                             } else if (response.resultCode === "Authorised") {

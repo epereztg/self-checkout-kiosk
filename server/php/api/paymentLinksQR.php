@@ -8,7 +8,7 @@
 /**
  * Make a payment
  */
-function initiatePaymentLinks() {
+function initiatePaymentLinksQR($link) {
     if (file_get_contents('php://input') != '') {
         $request = json_decode(file_get_contents('php://input'), true);
     } else {
@@ -17,7 +17,9 @@ function initiatePaymentLinks() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v52/paymentLinks";
+    echo $link;
+    //$url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+$link;
+    $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$link}";
 
     $data = [
         'amount' => [
@@ -32,7 +34,7 @@ function initiatePaymentLinks() {
     ];
 
     // Convert data to JSON
-    $json_data = json_encode(array_merge($data, $request));
+    //$json_data = json_encode(array_merge($data, $request));
 
     //  Initiate curl
     $curlAPICall = curl_init();
@@ -44,7 +46,7 @@ function initiatePaymentLinks() {
     curl_setopt($curlAPICall, CURLOPT_RETURNTRANSFER, true);
 
     // Add JSON message
-    curl_setopt($curlAPICall, CURLOPT_POSTFIELDS, $json_data);
+    //curl_setopt($curlAPICall, CURLOPT_POSTFIELDS, $json_data);
 
     // Set the url
     curl_setopt($curlAPICall, CURLOPT_URL, $url);
@@ -54,7 +56,7 @@ function initiatePaymentLinks() {
         array(
             "X-Api-Key: " . $apikey,
             "Content-Type: application/json",
-            "Content-Length: " . strlen($json_data)
+            //"Content-Length: " . strlen($json_data)
         )
     );
 

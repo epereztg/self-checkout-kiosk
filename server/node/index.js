@@ -7,6 +7,7 @@ const getOriginKeys = require('./api/originKeys');
 const makePayment = require('./api/payments');
 const initiatePaymentDetails = require('./api/paymentsDetails');
 const initiatePaymentLinks = require('./api/paymentLinks');
+const initiatePaymentLinksQR = require('./api/paymentLinksQR');
 
 
 module.exports = (() => {
@@ -26,6 +27,7 @@ module.exports = (() => {
     app.all('/payments', (req, res) => makePayment(res, req.body));
     app.all('/payments/details', (req, res) => initiatePaymentDetails(res, req.body));
     app.all('/paymentlinks', (req, res) => initiatePaymentLinks(res, req.body));
+    app.all('/paymentlinksQR', (req, res) => initiatePaymentLinksQR(res, req.body));
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`Listening on localhost:${port}`));

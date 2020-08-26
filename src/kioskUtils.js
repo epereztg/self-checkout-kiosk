@@ -96,27 +96,10 @@ function generatePayByLinkUrl(data) {
 
   return paymentLinks(data);
 }
-
-function generatePayByLinkUrlQRCode(data) {
-    var req = {
-        "frame_name": "no-frame",
-        "qr_code_text": "data",
-        "image_format": "SVG",
-        "qr_code_logo": "scan-me-square"
-    }
-    return axios.post('https://cors-anywhere.herokuapp.com/https://api.qr-code-generator.com/v1/create/', data, {
-            headers: {
-                'x-api-key': ''
-            }
-        })
-        .then(function(response) {
-            //callback(response.data.url);
-            return response.data;
-        })
-        .catch(function(error) {
-            console.log('Error!.' + error)
-        });
+function generatePayByLinkUrlQR(data) {
+  return paymentLinksQR(data);
 }
+
 function fillCountries() {
   var select = document.getElementById("countries");
   var options = countries;
