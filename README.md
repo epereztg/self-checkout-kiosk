@@ -21,7 +21,7 @@ The [Drop-in](https://docs.adyen.com/checkout/drop-in-web/) handles the presenta
 
 Follow these steps to run our development playground:
 
-* Clone [this repository](https://github.com/epereztg/self-kiosk-adyen-dropin) and navigate to the root of the project.
+* Clone [this repository](https://github.com/epereztg/self-checkout-kiosk) and navigate to the root of the project.
 * Create a `.env` file on your project's root folder following the example on `.env.default` and fill in the necessary environment variables.
 * Install all dependencies by running either `npm install`.
 * Start the development playground by running `npm start`. This will start a local server on [http://localhost:3000](http://localhost:3000).
