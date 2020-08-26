@@ -27,7 +27,7 @@ var home = `<base-layout @onPrev="prev" @onNext="next">
          <select id="currencies" name="currencies" @change="changeCurrency"></select>
       </p>
 
-     <a href="https://github.com/epereztg/self-kiosk-adyen-dropin" class="github-url">
+     <a href="https://github.com/epereztg/self-checkout-kiosk" class="github-url">
           <img border="0" alt="github" src="./img/GitHub-Mark-Light-64px.png" >
      </a>
 
