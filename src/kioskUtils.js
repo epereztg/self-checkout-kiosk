@@ -93,11 +93,15 @@ function getResultCodeFromUrl(url) {
 }
 
 function generatePayByLinkUrl(data) {
-
   return paymentLinks(data);
 }
+
 function generatePayByLinkUrlQR(data) {
   return paymentLinksQR(data);
+}
+
+function generatePayByLinkStatus(data) {
+  return paymentLinksStatus(data);
 }
 
 function fillCountries() {

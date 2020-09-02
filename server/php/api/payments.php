@@ -25,7 +25,7 @@ function initiatePayment() {
             'value' => 1000
         ],
         'reference' => 'Coffee Kiosk Order Reference',
-        'returnUrl' => 'https://your-company.com/...',
+        'returnUrl' => 'http://localhost:3000/#/review',
         'merchantAccount' => $merchantAccount
     ];
 

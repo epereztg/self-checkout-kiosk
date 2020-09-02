@@ -8,7 +8,7 @@
 /**
  * Make a payment
  */
-function initiatePaymentLinksQR($link) {
+function initiatePaymentLinksStatus($link) {
     if (file_get_contents('php://input') != '') {
         $request = json_decode(file_get_contents('php://input'), true);
     } else {
@@ -17,20 +17,18 @@ function initiatePaymentLinksQR($link) {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    echo $link;
-
-    $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$link}";
+    $url = "https://checkout-test.adyen.com/checkout/v53/paymentLinks/{$link}";
 
     $data = [
-        'amount' => [
-            'currency' => 'EUR',
-            'value' => 1000
-        ],
-        'description'=> 'Need my coffee',
-        'reference' => 'Coffee Kiosk Order Reference',
-        'reusable' =>  true,
-        'merchantAccount' => $merchantAccount,
-        'expiresAt'=> '2020-09-18T12:25:28Z' ,
+        // 'amount' => [
+        //     'currency' => 'EUR',
+        //     'value' => 1000
+        // ],
+        // 'description'=> 'Need my coffee',
+        // 'reference' => 'Coffee Kiosk Order Reference',
+        // 'reusable' =>  true,
+        // 'merchantAccount' => $merchantAccount,
+        // 'expiresAt'=> '2020-09-18T12:25:28Z' ,
     ];
 
     // Convert data to JSON
@@ -40,7 +38,7 @@ function initiatePaymentLinksQR($link) {
     $curlAPICall = curl_init();
 
     // Set to POST
-    curl_setopt($curlAPICall, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($curlAPICall, CURLOPT_CUSTOMREQUEST, "GET");
 
     // Will return the response, if false it print the response
     curl_setopt($curlAPICall, CURLOPT_RETURNTRANSFER, true);
@@ -55,7 +53,7 @@ function initiatePaymentLinksQR($link) {
     curl_setopt($curlAPICall, CURLOPT_HTTPHEADER,
         array(
             "X-Api-Key: " . $apikey,
-            "Content-Type: application/json",
+            "Content-Type: application/json"
             //"Content-Length: " . strlen($json_data)
         )
     );
@@ -71,5 +69,6 @@ function initiatePaymentLinksQR($link) {
     // Closing
     curl_close($curlAPICall);
 
+    // This file returns a JSON object
     return $result;
 }

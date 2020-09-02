@@ -154,6 +154,18 @@ const httpPostnoJson = (endpoint, data) =>
       response => response.text()
     ); // convert to plain text
 
+const httpGet = (endpoint, data) =>
+    fetch(`/${endpoint}`+`/${data}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(
+      response => response.text()
+    ); // convert to plain text
+
 // Generic POST Helper
 const httpPost = (endpoint, data) =>
     fetch(`/${endpoint}`, {
@@ -182,11 +194,44 @@ const getPaymentMethods = () =>
   // Test soft decline
   //"holderName": "AUTHENTICATION_REQUIRED : 1A",
   //"RequestedTestAcquirerResponseCode":38
-
-  //INFO: add custom request here to overwrite dropin input
-  //var custom = {
-    //payment request here
-  //}
+  var softDecline =  {
+       "channel" : "Web",
+       //"recurringProcessingModel" : "CardOnFile",
+       "shopperInteraction" : "Ecommerce",
+       "additionalData" : {
+          "allow3DS2" : "true",
+          "RequestedTestAcquirerResponseCode":38,
+          "executeThreeD":"false"
+       },
+       "amount" : {
+          "currency" : "EUR",
+          "value" : 1575
+       },
+       "browserInfo" : {
+          "acceptHeader" : "*\/*",
+          "colorDepth" : 24,
+          "javaEnabled" : false,
+          "language" : "es-ES",
+          "screenHeight" : 1440,
+          "screenWidth" : 3440,
+          "timeZoneOffset" : -120,
+          "userAgent" : "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/84.0.4147.105 Safari\/537.36"
+       },
+       "countryCode" : "PT",
+       "merchantAccount" : "ElenaPerez",
+       "paymentMethod" : {
+          "type" : "scheme",
+          "encryptedExpiryMonth" : "test_03",
+          "encryptedSecurityCode" : "test_737",
+          "encryptedExpiryYear" : "test_2030",
+          "encryptedCardNumber" : "test_5454545454545454"
+        },
+       "reference" : "8303992",
+       "returnUrl" : "http:\/\/localhost:3000",
+       "shopperLocale" : "pt-PT",
+       "shopperReference" : "93000004596428",
+       "origin" : "http://localhost:3000/#/review"
+    }
 
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
@@ -206,13 +251,12 @@ const makePayment = (paymentMethod, config = {}) => {
     paymentRequest.origin = defaultUrl();
     paymentRequest.shopperReference = defaultShopperReference;
 
-    if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
-      paymentRequest.shopperInteraction = 'ContAuth';
+    // if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
+    //   paymentRequest.shopperInteraction = 'ContAuth';
 
     var obj = paymentRequest
     console.log('paymentRequest: ',obj)
 
-    //INFO: change paymentRequest to your new custom variable
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
@@ -237,6 +281,7 @@ const paymentDetails = (paymentData, detailsKey, config = {}) => {
         paymentRequest = {
             paymentData: paymentData,
             details: {
+                //redirectResult: config
                 [detailsKey]: config
             }
         }
@@ -274,16 +319,32 @@ const paymentLinksQR = (paymentData) => {
 
     return httpPostnoJson('paymentLinksQR', paymentRequest)
         .then(response => {
-            if (response.error) throw 'Payment initiation failed';
+            if (response.error) throw 'Create PBL failed';
 
             //return JSON.parse(response);
             return response;
         })
         .catch(error => {
-            console.log('error on makePayment' + error)
+            console.log('error on create PBL' + error)
             throw Error(error);
         });
 };
+
+const paymentLinksStatus = (url) => {
+    //var paymentRequest = paymentData;
+    var pblID = url.split('=')[1];
+    return httpGet('paymentLinksStatus', pblID)
+        .then(response => {
+            if (response.error) throw 'Get PBL status failed';
+            //return response;
+            return JSON.parse(response).status;
+        })
+        .catch(error => {
+            console.log('error while getting PBL status' + error)
+            throw Error(error);
+        });
+};
+
 
 
 // Fetches an originKey from the local server

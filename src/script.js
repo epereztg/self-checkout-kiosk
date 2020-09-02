@@ -352,10 +352,12 @@ const Review = {
                 document.getElementById('paybylink').innerHTML = "Click here to open PayByLink url: " + url
                 document.getElementById('paybylink').href = url
                 document.getElementById("paybylink").className = "fake-link";
-                //generatePayByLinkUrlQR(url)
+
+                generatePayByLinkStatus(url).then(status => {
+                 document.getElementById("ItemPreview").innerHTML = status;
+               })
                 // generatePayByLinkUrlQR(url).then(pngcode => {
                 //   document.getElementById("ItemPreview").src = "data:image/png;base64," + pngcode;
-                //
                 // })
                 //document.getElementById("qrcode").innerHTML = qrcode;
             });
