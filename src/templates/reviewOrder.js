@@ -81,7 +81,7 @@ var reviewOrder = `
 
     <!--DROPIN component-->
     <div  id="payment-method" class="payment-method__container">
-        <div id="dropin-container" class="payment-method__container"  ></div>
+        <div id="dropin-container" class="payment-method__container"></div>
     </div>
 <div id="klarna-payments-container"></div>
 
