@@ -257,6 +257,12 @@ const paymentDetails = (paymentData, detailsKey, config = {}) => {
 const paymentLinks = (paymentData) => {
     var paymentRequest = paymentData;
 
+    paymentRequest.amount.value = parseInt(getAmount());
+    paymentRequest.amount.currency = getCurrencyCode();
+    paymentRequest.returnUrl = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adyen.com%2Fblog%2Fkenya-and-the-original-mobile-payment-service&psig=AOvVaw1TfPJyNe6GnHZA-2NHJlCe&ust=1600937388458000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLiV-9Xy_usCFQAAAAAdAAAAABAD'
+    paymentRequest.origin = defaultUrl();
+    //paymentRequest.shopperReference = defaultShopperReference;
+    
     return httpPostnoJson('paymentLinks', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';

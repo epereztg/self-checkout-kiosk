@@ -322,6 +322,13 @@ h1, h2, h3 {
   width: 500px;
 }
 
+.adyen-checkout__status--warning{
+  background: url("./img/adyen_waiting_gif.gif");
+  background-size: cover;
+  height: 500px;
+  width: 500px;
+}
+
 /* .adyen-checkout__status--error{
   background: url("./img/adyen_coffee_gif.gif");
   background-size: cover;
