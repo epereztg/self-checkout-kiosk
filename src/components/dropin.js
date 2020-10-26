@@ -46,15 +46,18 @@ var paymentMethodsConfiguration = {
         }
     },
     card: {
-      name: 'Insert your card',
-
+      //name: 'Insert your card',
+      hasHolderName: true,
+      holderNameRequired: true,
+      enableStoreDetails: true,
+      hideCVC: false, // Change this to true to hide the CVC field for stored cards
+      name: 'Pay with card',
+      //hideCVC: true,
         data : {
           holderName: 'S. Hopper'
         },
         environment: 'test',
         enableStoreDetails: true,
-        hasHolderName: false,
-        holderNameRequired: true,
     },
     applepay: { // Required configuration for Apple Pay
         configuration: {
@@ -79,8 +82,7 @@ var paymentMethodsConfiguration = {
         const dropin = checkout
             .create('dropin', {
                 paymentMethodsConfiguration: paymentMethodsConfiguration,
-                //style: styleObject,
-                //hasHolderName: false,
+
                 onComplete: state => {
                     console.log('onComplete!')
                 },
@@ -123,6 +125,8 @@ var paymentMethodsConfiguration = {
                         .then(result => {
                             document.getElementById('response').innerHTML = JSON.stringify(result);
                             if (JSON.parse(result).resultCode == 'ChallengeShopper') {
+                            //if (JSON.parse(result).action.type == 'threeDS2Challenge') {
+
                                 dropin.handleAction(JSON.parse(result).action);
                             }
                             else if (JSON.parse(result).resultCode == 'Authorised') {

@@ -79,8 +79,11 @@ function loadComponentsScripts() {
 function getPayloadFromUrl(url) {
     var queryString = url ? url.split('?')[1] : window.location.search.slice(1); //get all from ?
     if (typeof queryString != 'undefined') {
+
+        //For klarna and adp about issuer comment the following two rows
         queryString = queryString.split('=')[1];
         return queryString.split('&')[0];
+        return queryString;
     } else return null;
 }
 

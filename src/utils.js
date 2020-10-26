@@ -6,11 +6,11 @@ const defaultShopperReference = localStorage.getItem('shopperReference')!=null ?
 
 const defaultShopperStatement= "test_c1"
 
-const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN']
-const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Deutschland','France','China']
+const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN','KR']
+const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Deutschland','France','China', 'Korea']
 const locale = ['es-ES', 'en-EN', 'pt-PT']
-const currencies = ['EUR','GBP','USD','CNY','SEK','MXN','NOK']
-const flags = ['🇪🇸','🇧🇪','🇳🇴','🇲🇽','🇳🇱','🇵🇹','🇦🇹','🇸🇪','🇩🇪','🇫🇷','🇨🇳']
+const currencies = ['EUR','GBP','USD','CNY','SEK','MXN','NOK','KRW']
+const flags = ['🇪🇸','🇧🇪','🇳🇴','🇲🇽','🇳🇱','🇵🇹','🇦🇹','🇸🇪','🇩🇪','🇫🇷','🇨🇳','🇰🇷']
 const localeflags = ['🇪🇸','🇳🇱','🇵🇹']
 
 const defaultUrl = () => {
@@ -188,6 +188,7 @@ const getPaymentMethods = () =>
     //payment request here
   //}
 
+
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
     //const paymentsConfig = { ...config };
@@ -206,8 +207,8 @@ const makePayment = (paymentMethod, config = {}) => {
     paymentRequest.origin = defaultUrl();
     paymentRequest.shopperReference = defaultShopperReference;
 
-    if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
-      paymentRequest.shopperInteraction = 'ContAuth';
+    //if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
+    //  paymentRequest.shopperInteraction = 'ContAuth';
 
     var obj = paymentRequest
     console.log('paymentRequest: ',obj)
@@ -262,7 +263,7 @@ const paymentLinks = (paymentData) => {
     paymentRequest.returnUrl = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adyen.com%2Fblog%2Fkenya-and-the-original-mobile-payment-service&psig=AOvVaw1TfPJyNe6GnHZA-2NHJlCe&ust=1600937388458000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLiV-9Xy_usCFQAAAAAdAAAAABAD'
     paymentRequest.origin = defaultUrl();
     //paymentRequest.shopperReference = defaultShopperReference;
-    
+
     return httpPostnoJson('paymentLinks', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
