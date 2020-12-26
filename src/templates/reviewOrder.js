@@ -51,7 +51,7 @@ var reviewOrder = `
 
      <!--CARD component-->
 
-     <!--<div  id="payment-method">
+    <!-- <div  id="payment-method">
         <div id="card-container" class="payment-method__container"></div>
         </br>
         <div id="card-number-stored" class="payment-method__container">
@@ -61,6 +61,15 @@ var reviewOrder = `
         <div id="stored-card" class="payment-method__container"></div>
      </div>-->
 
+     <!--<div  id="payment-method">
+        <div id="card-container" class="payment-method__container"></div>
+        </br>
+        <p>
+           Stored card:
+           <div id="storedCardInfo"></div>
+        </p>
+        <div id="stored-card" class="payment-method__container"></div>
+     </div>-->
 
 
     <!--<div id="payment-method" class="payment-method__container">
@@ -80,11 +89,11 @@ var reviewOrder = `
     <div  id="mbway-container"></div><a href="https://comprafacil2.hipay.pt/backoffice-test/MBWay/Payments.aspx?statusEnd=&statusStart=&status=&vat=&email=elena.pereztoril%40adyen.com&dateEnd=&dateStart=&phone=&operationId=" target="_blank">Go to HiPay</a>-->
 
     <!--DROPIN component-->
+
     <div  id="payment-method" class="payment-method__container">
         <div id="dropin-container" class="payment-method__container"></div>
     </div>
-<div id="klarna-payments-container"></div>
-
+    
   <p class="center"><a id="paybylink" class="inactiveLink" href="" target="_blank" >PBL url will be shown here...please wait</a></p>
   <div id="localStorage"></div>
   <hr style="height:10px">

@@ -27,8 +27,8 @@ function initiatePaymentLinks() {
         'description'=> 'Need my coffee',
         'reference' => 'Coffee Kiosk Order Reference',
         'reusable' =>  true,
-        'merchantAccount' => $merchantAccount,
-        'expiresAt'=> '2020-10-02T12:25:28Z' ,
+        'merchantAccount' => $merchantAccount
+        //'expiresAt'=> '2020-10-02T12:25:28Z' ,
     ];
 
     // Convert data to JSON

@@ -10,11 +10,13 @@ getPaymentMethods().then(paymentMethodsResponse => {
           //hasHolderName: true,
           //holderNameRequired: true,
           //hideCVC: true,//if set, cannot use stored payment details later
+
           showPayButton: true,
           card: {
             environment: 'test',
             enableStoreDetails: true,
             locale: 'es-ES',
+            hideCVC: true
             //hasHolderName: true,
             //holderNameRequired: true,
           }
@@ -56,9 +58,10 @@ getPaymentMethods().then(paymentMethodsResponse => {
                   encryptedExpiryDate: '03/30',
                   encryptedSecurityCode : '737'
               },
-
+              hideCVC: true,
               // Events
               onSubmit: (state, component) => {
+
                   if (state.isValid) {
                     makePayment(state.data)
                       .then(response => {
@@ -113,8 +116,11 @@ getPaymentMethods().then(paymentMethodsResponse => {
                   // };
               }
           })
-          .mount('#card-container')
+          .mount('#card-container');
+          const storedcard = document.querySelector('#storedCardInfo');
+          storedcard.textContent = card.displayName;
+          const storedcardicon = document.querySelector('#storedCardIcon');
+         storedcardicon.textContent = card.icon;
   })
 
-})
-;
+});

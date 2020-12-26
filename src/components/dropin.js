@@ -94,7 +94,6 @@ var paymentMethodsConfiguration = {
 
                 },
                 onSubmit: (state, component) => {
-
                     makePayment(state.data)
                         //    makePayment(state.data, paymentRequest)
                         .then(response => {
@@ -102,9 +101,14 @@ var paymentMethodsConfiguration = {
                             if (response.action) {
                                 saveActionType(response.action.type)
                                 savePaymentData(response.action.paymentData)
-                                localStorage.setItem('details.key', response.details[0].key)
+                                if (response.resultCode=="Pending"){
+                                  dropin.handleAction(response.action);
+                                }
+                                //else if (response.resultCode!="PresentToShopper"){
+                                  //localStorage.setItem('details.key', response.details[0].key)
+                                //}
                                 // Drop-in handles the action object from the /payments response.
-                                dropin.handleAction(response.action);
+                                else dropin.handleAction(response.action);
                             } else if (response.resultCode === "Authorised") {
                                 dropin.setStatus('success');
                                 //var element = document.getElementById("review");
@@ -131,8 +135,12 @@ var paymentMethodsConfiguration = {
                             }
                             else if (JSON.parse(result).resultCode == 'Authorised') {
 
-                                showFinalResultDropin(result);
-                              //  dropin.setStatus('success');
+                                // if (JSON.parse(result).amount.value > 0)
+                                //   showFinalResultDropin(result);
+                                // else
+                                //dropin.update()
+
+                                dropin.setStatus('success');
                                 localStorage.clear()
                             }
                              else {
