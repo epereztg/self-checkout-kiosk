@@ -4,33 +4,18 @@ var home = `<base-layout @onPrev="prev" @onNext="next">
      poster="./img/BackgroundCoffee.png"
      <source src="./img/cup.mp4" type="video/mp4">
   </video>
+  <div class="center text-over-video">
+     <p>Ready to order a coffee?</p>
+  </div>
+
   <div @click="next()" class="center text-over-video">
      <i class="fal fa-coffee fa-5x"></i>
-     <p>Ready to order a coffee?   <i class="far fa-hand-point-up"></i></p>
-
+     <a href="http://localhost:3000/#/kioskHome">I want to test in the Sandbox</a>
   </div>
-  <div class="center text-over-video">
-     <p>
-        ShopperReferenceX: <span id="shopperReference" style="font-size: 38px;font-weight: bold;" contenteditable="true">{{ defaultShopperReference }}</span>
-        <i class="fa fa-pencil"></i>
-     </p>
-      <p>
-         CountryCode:
-         <select id="countries" name="countries" @change="changeLocation"></select>
-      </p>
-      <p>
-         ShopperLocale:
-         <select id="locales" name="locales" @change="changeShopperLocale"></select>
-      </p>
-      <p>
-         DefaultCurrency:
-         <select id="currencies" name="currencies" @change="changeCurrency"></select>
-      </p>
 
-     <a href="https://github.com/epereztg/self-checkout-kiosk" class="github-url">
-          <img border="0" alt="github" src="./img/GitHub-Mark-Light-64px.png" >
-     </a>
-
+  <div @click="next()" class="center text-over-video">
+     <i class="fal fa-coffee fa-5x"></i>
+     <a href="http://localhost:3000/#/kioskHome">I want to see a Self Checkout Kiosk demo</a>
   </div>
 </div>
 </base-layout>

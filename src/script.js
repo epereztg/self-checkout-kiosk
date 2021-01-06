@@ -80,9 +80,40 @@ const PageMixin = {
         }
     }
 };
-
 const Home = {
     template: home,
+    data() {
+        return {
+            size: null,
+            choices: {
+                small: {
+                    icon: "fa-coffee",
+                    text: "Small"
+                },
+                medium: {
+                    icon: "fa-coffee",
+                    text: "Medium"
+                }
+            }
+        };
+    },
+    mixins: [PageMixin],
+    components: {
+        BaseLayout,
+        PageNav
+    },
+    mounted() {
+        localStorage.clear();
+    },
+    methods: {
+        async preNextAction() {
+            //localStorage.setItem('shopperReference', document.getElementById("shopperReference").innerHTML)
+        }
+    }
+};
+
+const KioskHome = {
+    template: kioskHome,
     data() {
         return {
             size: null,
@@ -94,11 +125,6 @@ const Home = {
         BaseLayout,
         PageNav
     },
-    // beforeRouteEnter(to, from, next) {
-    //     next(vm => {
-    //         vm.shopperReference = document.getElementById("shopperReference").innerHTML;
-    //     });
-    // },
     mounted() {
         localStorage.clear();
 
@@ -441,6 +467,91 @@ const Review = {
     },
 };
 
+
+const ReviewSandbox = {
+    template: sandbox,
+    data() {
+        return {
+            componentKey: 0,
+        }
+    },
+    mixins: [PageMixin],
+    components: {
+        BaseLayout
+    },
+
+    methods: {
+      prettyPrint() {
+          var ugly = document.getElementById('requestToPayments').value;
+          var obj = JSON.parse(ugly);
+          var pretty = JSON.stringify(obj, undefined, 4);
+          document.getElementById('requestToPayments').value = pretty;
+      },
+      // getTextAreaRequest(){
+      //   var x = document.getElementById("requestToPayments").value;
+      //   localStorage.setItem('requestToPayments', x)
+      // },
+        generateUrl() {
+            var merchantAccount = {
+                "merchantAccount": "ElenaPerez"
+            }
+            const dataPBL = {
+                ...paymentsDefaultConfig,
+                ...merchantAccount
+            };
+            generatePayByLinkUrl(dataPBL).then(url => {
+                document.getElementById('paybylink').innerHTML = "Click here to open PayByLink url: " + url
+                document.getElementById('paybylink').href = url
+                document.getElementById("paybylink").className = "fake-link";
+            });
+        },
+        say: function(message) {
+            alert(message)
+        }
+    },
+    mounted() {
+        console.log('mounted');
+
+        //Show localStorage on Checkout screen
+        var obj = localStorage
+        //document.getElementById('localStorage').innerHTML = JSON.stringify(obj);
+
+        //Fill text area with default dropin request (be careful, is not full, not payment method info)
+        //var dropinRequest = localStorage.getItem('dropinRequest')
+        //document.getElementById('requestToPayments').innerHTML = dropinRequest
+
+        saveAmount(defaultAmount);
+        //document.getElementById('totalprice').innerHTML = (getAmount() / 100) + " " + getCurrencyCode();
+        //Get Callback on redirect payment methods
+        const url = window.location.href
+        var payload = getPayloadFromUrl(url);
+
+        var detailsKey = localStorage.getItem('details.key');
+        //var payload = getFromUrl(detailsKey); TBD
+        var resultCode = getResultCodeFromUrl(url);
+        var paymentData = getPaymentData();
+        if (paymentData !== null) {
+            var uri_enc_paymentData = encodeURIComponent(paymentData)
+            var obj = { resultCode:"Authorised" };
+            //var resultFake = JSON.stringify(obj);
+            //paymentDetails(uri_enc_paymentData,payload) interacContainer
+            //result = "{"pspReference":"851594724227366G","resultCode":"Authorised","merchantReference":"KIOSK-DROPIN","paymentMethod":"alipay","shopperLocale":"en-EN"}"
+            paymentDetails(paymentData,detailsKey, payload) //alipay
+                .then(result => {
+                    //result = resultFake;
+                    //localStorage.removeItem('paymentData');
+                    // Your function to show the final result to the shopper.
+                    showFinalResultDropin(result);
+                    console.log('paymentDetails result: '+result)
+                    localStorage.clear();
+                })
+        } else loadComponentsScripts()
+        //Create Pay by link returnUrl
+        this.generateUrl()
+        loadCoffeeOrder()
+    },
+};
+
 const Payment = {
     template: payment,
     mixins: [PageMixin],
@@ -535,6 +646,13 @@ const routes = [{
         }
     },
     {
+        path: "/kioskHome",
+        component: KioskHome,
+        meta: {
+            pageTitle: "Kiosk"
+        }
+    },
+    {
         path: "/size",
         component: Size,
         meta: {
@@ -567,6 +685,13 @@ const routes = [{
         component: Review,
         meta: {
             pageTitle: "Review Order"
+        }
+    },
+    {
+        path: "/sandbox",
+        component: ReviewSandbox,
+        meta: {
+            pageTitle: "Review Order / ReviewSandbox"
         }
     },
     {

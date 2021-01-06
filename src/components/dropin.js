@@ -49,7 +49,6 @@ var paymentMethodsConfiguration = {
       //name: 'Insert your card',
       hasHolderName: true,
       holderNameRequired: true,
-      enableStoreDetails: true,
       hideCVC: false, // Change this to true to hide the CVC field for stored cards
       name: 'Pay with card',
       //hideCVC: true,
@@ -60,22 +59,15 @@ var paymentMethodsConfiguration = {
         enableStoreDetails: true,
     },
     applepay: { // Required configuration for Apple Pay
-        configuration: {
-            merchantName: 'ElenaPerez', // Name to be displayed on the form
-            merchantIdentifier: 'adyen.test.merchant' // Your Apple merchant identifier as described in https://developer.apple.com/documentation/apple_pay_on_the_web/applepayrequest/2951611-merchantidentifier
-        },
-        onValidateMerchant: (resolve, reject, validationURL) => {
-            // Calls your server with validationURL, which then requests a payment session from Apple Pay servers.
-            // Your server then receives the session and calls resolve(MERCHANTSESSION) or reject() to complete merchant validation.
-        }
+        buttonType: "plain",
+        buttonColor: "black",
     },
     facilypay_3x: {
       amount: {
           currency: "EUR",
           value: 2000
       }
-    },
-    enableStoreDetails: true
+    }
   }
 
         // 2. Create and mount the Component
@@ -95,9 +87,7 @@ var paymentMethodsConfiguration = {
                 },
                 onSubmit: (state, component) => {
                     makePayment(state.data)
-                        //    makePayment(state.data, paymentRequest)
                         .then(response => {
-                            document.getElementById('response').innerHTML = JSON.stringify(response);
                             if (response.action) {
                                 saveActionType(response.action.type)
                                 savePaymentData(response.action.paymentData)
@@ -127,10 +117,7 @@ var paymentMethodsConfiguration = {
                 onAdditionalDetails: (state, dropin) => {
                     paymentDetails(state.data)
                         .then(result => {
-                            document.getElementById('response').innerHTML = JSON.stringify(result);
-                            if (JSON.parse(result).resultCode == 'ChallengeShopper') {
-                            //if (JSON.parse(result).action.type == 'threeDS2Challenge') {
-
+                            if (JSON.parse(result).resultCode == 'ChallengeShopper' || JSON.parse(result).resultCode == 'IdentifyShopper') {
                                 dropin.handleAction(JSON.parse(result).action);
                             }
                             else if (JSON.parse(result).resultCode == 'Authorised') {
@@ -184,7 +171,7 @@ var paymentMethodsConfiguration = {
                 onCancel: (data, dropin) => {
                     dropin.setStatus('error');
                 },
-                onError: (state, dropin) => {
+                onError: (data, dropin) => {
                     localStorage.removeItem('paymentData');
                     dropin.setStatus('error', {
                         message: 'Something went wrong.'

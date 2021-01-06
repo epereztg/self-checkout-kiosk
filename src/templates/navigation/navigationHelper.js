@@ -1,9 +1,12 @@
 const NavigationHelper = {
     store: null,
-    atStart: currentRoute => currentRoute == "/",
+    atStart: currentRoute => currentRoute == "/kioskHome",
     atEnd: currentRoute => currentRoute == "/orderCompleted",
     milk: currentRoute => this.store.milkBalance,
     prev(currentRoute) {
+        if (currentRoute == "/kioskHome") {
+            return "/size"
+        }
         if (currentRoute == "/size") {
             return "/"
         } else if (currentRoute == "/capsule") {
@@ -24,6 +27,9 @@ const NavigationHelper = {
     },
     next(currentRoute) {
         if (currentRoute == "/") {
+            return "/kioskHome";
+        }
+        else if (currentRoute == "/kioskHome") {
             return "/size";
         } else if (currentRoute == "/size") {
             return "/capsule";

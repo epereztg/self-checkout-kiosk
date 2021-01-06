@@ -3,6 +3,7 @@ const defaultCountry = localStorage.getItem('defaultCountry')!=null ? localStora
 const defaultLocale = localStorage.getItem('defaultLocale')!=null ? localStorage.getItem('defaultLocale') : 'en-EN';
 const defaultAmount = Math.floor(Math.random() * 100000)
 const defaultShopperReference = localStorage.getItem('shopperReference')!=null ? localStorage.getItem('shopperReference'):'mail@adyen.com'
+const defaultRequest= localStorage.getItem('requestToPayments')!=null ? localStorage.getItem('requestToPayments'):null
 
 const defaultShopperStatement= "test_c1"
 
@@ -118,6 +119,22 @@ const paymentsDefaultConfig = {
     additionalData: {
         allow3DS2: true
     },
+    billingAddress: { //i.e. required for AfterPay
+        country: 'US',
+        city: 'New York',
+        street: 'Redwood Block',
+        houseNumberOrName: '37C',
+        stateOrProvince: 'NY',
+        postalCode: '10039'
+    },
+    deliveryAddress: {
+        country: 'US',
+        city: 'New York',
+        street: 'Redwood Block',
+        houseNumberOrName: '37C',
+        stateOrProvince: 'NY',
+        postalCode: '10039'
+    },
     lineItems: [{
         id: '1',
         description: 'Test Item 1',
@@ -179,17 +196,11 @@ const getPaymentMethods = () =>
     })
     .catch(console.error);
 
-  // Test soft decline
-  //"holderName": "AUTHENTICATION_REQUIRED : 1A",
-  //"RequestedTestAcquirerResponseCode":38
-
   //INFO: add custom request here to overwrite dropin input
   //var custom = {
     //payment request here
   //}
 
-   // "origin" : "http://localhost:3000/#/review",
-   // "returnUrl" : "http://localhost:3000/#/review",
    // "paymentMethod" : {
    //    "encryptedCardNumber" : "test_5454545454545454",
    //    "encryptedExpiryMonth" : "test_03",
@@ -200,6 +211,7 @@ const getPaymentMethods = () =>
    //    "storeDetails": false
    // },
 
+
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
     //const paymentsConfig = { ...config };
@@ -207,10 +219,17 @@ const makePayment = (paymentMethod, config = {}) => {
         ...paymentsDefaultConfig,
         ...config
     };
-    const paymentRequest = {
+    var paymentRequest = {
         ...paymentsConfig,
         ...paymentMethod
     };
+
+    if (document.getElementById('requestToPayments') !== null){
+      var defaultRequest = document.getElementById("requestToPayments").value;
+      if (defaultRequest!== null && defaultRequest !== ''){
+        paymentRequest = JSON.parse(defaultRequest)
+      } else document.getElementById('requestToPayments').innerHTML = JSON.stringify(paymentRequest);
+    }
 
     paymentRequest.amount.value = parseInt(getAmount());
     paymentRequest.amount.currency = getCurrencyCode();
@@ -224,11 +243,13 @@ const makePayment = (paymentMethod, config = {}) => {
     var obj = paymentRequest
     console.log('paymentRequest: ',obj)
 
-    //INFO: change paymentRequest to your new custom variable
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
 
+            if (document.getElementById('responseFromPayments') !== null){
+                document.getElementById('responseFromPayments').innerHTML = JSON.stringify(response);
+            }
             return response;
         })
         .catch(error => {
@@ -243,10 +264,8 @@ const handlePostMessage = (e) => {
 
 //to be used in redirect type. i.e Alipay, Interac
 const paymentDetails = (paymentData, detailsKey, config = {}) => {
-    paymentData.details.threeDSAuthenticationOnly = true
+    //paymentData.details.threeDSAuthenticationOnly = true
     var paymentRequest = paymentData;
-
-
 
     if (getActionType() == "redirect") {
         paymentRequest = {
@@ -257,10 +276,27 @@ const paymentDetails = (paymentData, detailsKey, config = {}) => {
         }
     }
 
+    if (document.getElementById('requestToPaymentDetails') !== null){
+      var defaultRequest = document.getElementById("requestToPaymentDetails").value;
+      if (defaultRequest!== null && defaultRequest !== ''){
+          document.getElementById('requestToPaymentDetails2').innerHTML = JSON.stringify(paymentRequest);
+      } else document.getElementById('requestToPaymentDetails').innerHTML = JSON.stringify(paymentRequest);
+    }
+
     return httpPostnoJson('payments/details', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment details failed';
             console.log("paymentdetails response: "+response)
+
+            // if (document.getElementById('responseFromPaymentDetails') !== null){
+            //   document.getElementById('responseFromPaymentDetails').innerHTML = JSON.stringify(response);
+            // }
+            if (document.getElementById('responseFromPaymentDetails') !== null){
+              var defaultRequest = document.getElementById("responseFromPaymentDetails").value;
+              if (defaultRequest!== null && defaultRequest !== ''){
+                  document.getElementById('responseFromPaymentDetails2').innerHTML = JSON.stringify(paymentRequest);
+              } else document.getElementById('responseFromPaymentDetails').innerHTML = JSON.stringify(paymentRequest);
+            }
             return response;
         })
         .catch(error => {
@@ -321,5 +357,5 @@ httpPost('originKeys')
         return response.originKeys[Object.keys(response.originKeys)[0]];//response.originKeys[origin];
     }
     return response.originKeys[Object.keys(response.originKeys)[0]];
-})
+}).then(localStorage.setItem('dropinRequest', JSON.stringify(paymentsDefaultConfig)))
 .catch(console.error);
