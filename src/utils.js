@@ -9,10 +9,10 @@ const defaultShopperStatement= "test_c1"
 
 const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN','KR', 'AU']
 const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Deutschland','France','China', 'Korea','Australia']
-const locale = ['es-ES', 'en-EN', 'pt-PT']
+const locale = ['es-ES', 'en-GB','pt-PT']
 const currencies = ['EUR','GBP','USD','CNY','SEK','MXN','NOK','KRW','AUD']
 const flags = ['🇪🇸','🇧🇪','🇳🇴','🇲🇽','🇳🇱','🇵🇹','🇦🇹','🇸🇪','🇩🇪','🇫🇷','🇨🇳','🇰🇷','🇦🇺']
-const localeflags = ['🇪🇸','🇳🇱','🇵🇹']
+const localeflags = ['🇪🇸','🇬🇧','🇵🇹']
 
 const defaultUrl = () => {
     if (window.location.origin.includes("heroku", 1)) {
