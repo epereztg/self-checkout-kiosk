@@ -1,6 +1,6 @@
 const defaultCurrency = localStorage.getItem('defaultCurrency')!=null ? localStorage.getItem('defaultCurrency') : 'EUR';
 const defaultCountry = localStorage.getItem('defaultCountry')!=null ? localStorage.getItem('defaultCountry'): 'ES';
-const defaultLocale = localStorage.getItem('defaultLocale')!=null ? localStorage.getItem('defaultLocale') : 'en-EN';
+const defaultLocale = localStorage.getItem('defaultLocale')!=null ? localStorage.getItem('defaultLocale') : 'en-GB';
 const defaultAmount = Math.floor(Math.random() * 100000)
 const defaultShopperReference = localStorage.getItem('shopperReference')!=null ? localStorage.getItem('shopperReference'):'mail@adyen.com'
 const defaultRequest= localStorage.getItem('requestToPayments')!=null ? localStorage.getItem('requestToPayments'):null
@@ -9,7 +9,7 @@ const defaultShopperStatement= "test_c1"
 
 const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN','KR', 'AU']
 const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Deutschland','France','China', 'Korea','Australia']
-const locale = ['es-ES','en-EN','pt-PT']
+const locale = ['es-ES','en-GB','pt-PT']
 const currencies = ['EUR','GBP','USD','CNY','SEK','MXN','NOK','KRW','AUD']
 const flags = ['🇪🇸','🇧🇪','🇳🇴','🇲🇽','🇳🇱','🇵🇹','🇦🇹','🇸🇪','🇩🇪','🇫🇷','🇨🇳','🇰🇷','🇦🇺']
 const localeflags = ['🇪🇸','🇬🇧','🇵🇹']
