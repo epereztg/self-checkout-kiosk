@@ -10,7 +10,7 @@ var home = `<base-layout @onPrev="prev" @onNext="next">
 
   <div @click="next()" class="center text-over-video">
      <i class="fal fa-coffee fa-5x"></i>
-     <a href="http://localhost:3000/#/kioskHome">I want to test in the Sandbox</a>
+     <a href="http://localhost:3000/#/sandbox">I want to test in the Sandbox</a>
   </div>
 
   <div @click="next()" class="center text-over-video">

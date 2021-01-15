@@ -19,7 +19,7 @@ function getPaymentMethods($currency, $value, $countryCode, $shopperReference) {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v53/paymentMethods";
+    $url = "https://checkout-test.adyen.com/v66/paymentMethods";
 
     $data = [
         'merchantAccount' => $merchantAccount,
