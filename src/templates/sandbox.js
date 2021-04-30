@@ -24,14 +24,7 @@ var sandbox = `
       <label for="responseFromPaymentDetails">Response from /payment/details : </label>
       <textarea id="responseFromPaymentDetails" cols=50 rows=5><!--100, 20->
       </textarea>
-
-      <label for="requestToPaymentDetails2">Request to /payment/details2 : </label>
-      <textarea id="requestToPaymentDetails2" cols=50 rows=5><!--100, 20->
-      </textarea>
-
-      <label for="responseFromPaymentDetails2">Response from /payment/details2 : </label>
-      <textarea id="responseFromPaymentDetails2" cols=50 rows=5><!--100, 20->
-      </textarea>
+      
     </div>
 
 

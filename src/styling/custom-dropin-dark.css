@@ -97,7 +97,7 @@
 .dropin-dark .adyen-checkout__input {
     background: var(--dark-hover);
     border-color: var(--dark-hover);
-    color: #fff;
+    color: #000;
 }
 
 .dropin-dark .adyen-checkout__input--focus,

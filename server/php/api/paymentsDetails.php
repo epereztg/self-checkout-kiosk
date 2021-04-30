@@ -17,15 +17,13 @@ function initiatePaymentDetails() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v53/payments/details";
+    $url = "https://checkout-test.adyen.com/v67/payments/details";
 
     $data = [
         'amount' => [
             'currency' => 'EUR',
             'value' => 1000
         ],
-        'reference' => 'Coffee Kiosk Order Reference',
-
         'merchantAccount' => $merchantAccount
     ];
 

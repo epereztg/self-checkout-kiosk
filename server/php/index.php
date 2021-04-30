@@ -10,6 +10,7 @@ require('api/originKeys.php');
 require('api/paymentsDetails.php');
 require('api/paymentLinks.php');
 require('api/paymentLinksQR.php');
+require('api/fallbackthreedone.php');
 
 // Basic routing
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
@@ -47,6 +48,10 @@ switch($request_uri[0]) {
     case '/paymentLinksQR':
         header('Content-Type: application/json');
         echo initiatePaymentLinksQR($request_uri[0]);
+        break;
+    case '/fallbackthreedone':
+        header('Content-Type: application/json');
+        $myresult = fallbackthreedone($request_uri[0]);
         break;
 
     // default
