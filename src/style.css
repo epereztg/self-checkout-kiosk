@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  background: #ecdacf;
+  background: #ffffff;
   padding: 25px;
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
@@ -48,16 +48,16 @@ h1, h2, h3 {
   display: block
 }
 
-.contain a,
+/* .contain a,
 .contain label {
   color: #000;
-}
+} */
 /* .contain a {
   text-decoration: none;
 } */
 .contain header {
-  background: #0ABF53;
-  background: linear-gradient(108deg, #7AE2E3 0%, #0ABF53 100%);
+  background: #03102A;
+  /*background: linear-gradient(108deg, #7AE2E3 0%, #0ABF53 100%);*/
   border-radius: 25px 25px 0 0;
   padding: 15px 25px;
 }
@@ -156,7 +156,7 @@ h1, h2, h3 {
 }
 .contain main .review {
   /* padding: 40px 10px; */
-  background: url("./img/BackgroundCoffee.png");
+  /* background: url("./img/BackgroundCoffee.png"); */
   background-size: cover;
   background-repeat: repeat-y;
   height: 100%
@@ -213,7 +213,7 @@ h1, h2, h3 {
   width: 45%;
   border: none;
   /* background-color: #4CAF50; */
-  background-color: #ffff99;
+  background-color: #57BC60;
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;

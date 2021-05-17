@@ -310,8 +310,8 @@ const MilkBalance = {
     }
 };
 
-const Review = {
-    template: reviewOrder,
+const Checkout = {
+    template: checkout,
     data() {
         return {
             componentKey: 0,
@@ -322,10 +322,10 @@ const Review = {
         BaseLayout
     },
     created() {
-        console.log('created');
+        //console.log('created');
     },
     updated() {
-        console.log('updated');
+        //console.log('updated');
     },
     methods: {
         // listrecurring(){
@@ -378,13 +378,16 @@ const Review = {
                 document.getElementById('paybylink').innerHTML = "Click here to open PayByLink url: " + url
                 document.getElementById('paybylink').href = url
                 document.getElementById("paybylink").className = "fake-link";
-                //generatePayByLinkUrlQR(url)
-                // generatePayByLinkUrlQR(url).then(pngcode => {
-                //   document.getElementById("ItemPreview").src = "data:image/png;base64," + pngcode;
-                //
-                // })
-                //document.getElementById("qrcode").innerHTML = qrcode;
-            });
+
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                  text: url,
+                  width: 128,
+                  height: 128,
+                  colorDark : "#FFFFFF",
+                  colorLight : "#000000",//9D9D9B
+                  //correctLevel : QRCode.CorrectLevel.H
+                });
+            })
         },
         changeCurrency() {
             var sel = document.getElementById('currencies');
@@ -421,11 +424,16 @@ const Review = {
     mounted() {
 
         var obj = localStorage
-        // document.getElementById('localStorage').innerHTML = JSON.stringify(obj);
+        //PaymentResult:
+        //document.getElementById('localStorage').innerHTML = JSON.stringify(obj);
 
         fillCountries();
         fillCurrencies();
         fillLocale();
+
+const signature = { "signature": { "data": [ { "x": "79", "y": "86" }, { "x": "7C", "y": "81" }, { "x": "7D", "y": "7D" }, { "x": "7D", "y": "6E" }, { "x": "7C", "y": "6A" }, { "x": "7A", "y": "67" }, { "x": "77", "y": "5F" }, { "x": "76", "y": "5B" }, { "x": "73", "y": "56" }, { "x": "70", "y": "52" }, { "x": "6D", "y": "4F" }, { "x": "6B", "y": "4E" }, { "x": "68", "y": "4B" }, { "x": "65", "y": "4A" }, { "x": "62", "y": "47" }, { "x": "5D", "y": "46" }, { "x": "5D", "y": "48" }, { "x": "5C", "y": "48" }, { "x": "5C", "y": "4A" }, { "x": "5A", "y": "4E" }, { "x": "59", "y": "51" }, { "x": "59", "y": "53" }, { "x": "58", "y": "53" }, { "x": "58", "y": "5C" }, { "x": "56", "y": "6B" }, { "x": "56", "y": "7E" }, { "x": "57", "y": "80" }, { "x": "57", "y": "88" }, { "x": "58", "y": "8D" }, { "x": "59", "y": "91" }, { "x": "5A", "y": "91" }, { "x": "5C", "y": "95" }, { "x": "61", "y": "98" }, { "x": "63", "y": "9B" }, { "x": "66", "y": "9E" }, { "x": "69", "y": "A0" }, { "x": "6B", "y": "A2" }, { "x": "6E", "y": "A7" }, { "x": "70", "y": "A9" }, { "x": "73", "y": "AA" }, { "x": "79", "y": "AD" }, { "x": "7D", "y": "AE" }, { "x": "81", "y": "B3" }, { "x": "84", "y": "B6" }, { "x": "88", "y": "BD" }, { "x": "8A", "y": "BF" }, { "x": "8B", "y": "BF" }, { "x": "8D", "y": "C2" }, { "x": "8E", "y": "C5" }, { "x": "90", "y": "C5" }, { "x": "92", "y": "C2" }, { "x": "96", "y": "BF" }, { "x": "98", "y": "BE" }, { "x": "9C", "y": "B9" }, { "x": "A0", "y": "B5" }, { "x": "AA", "y": "AE" }, { "x": "AF", "y": "AB" }, { "x": "B2", "y": "A6" }, { "x": "B5", "y": "A0" }, { "x": "B7", "y": "9B" }, { "x": "BC", "y": "93" }, { "x": "BF", "y": "8A" }, { "x": "C3", "y": "82" }, { "x": "C6", "y": "71" }, { "x": "C6", "y": "6C" }, { "x": "C3", "y": "5C" }, { "x": "C1", "y": "57" }, { "x": "B9", "y": "47" }, { "x": "B9", "y": "46" }, { "x": "B7", "y": "42" }, { "x": "B4", "y": "40" }, { "x": "B2", "y": "40" }, { "x": "A6", "y": "46" }, { "x": "A4", "y": "48" }, { "x": "9F", "y": "4B" }, { "x": "9B", "y": "4D" }, { "x": "8E", "y": "57" }, { "x": "88", "y": "5D" }, { "x": "85", "y": "63" }, { "x": "7D", "y": "6B" }, { "x": "7A", "y": "6F" }, { "x": "74", "y": "79" }, { "x": "73", "y": "7D" }, { "x": "73", "y": "7F" }, { "x": "72", "y": "84" }, { "x": "76", "y": "87" }, { "x": "7A", "y": "87" }, { "x": "7C", "y": "86" }, { "x": "FFFF", "y": "FFFF" } ], "signature_format": "raw" }}
+
+      var canvas = parseSignature(signature);
 
         //Set country code
         document.getElementById('countries').getElementsByTagName('option')[getCountryIndex()].selected = 'selected'
@@ -437,24 +445,15 @@ const Review = {
         saveAmount(defaultAmount);
         document.getElementById('totalprice').innerHTML = (getAmount() / 100) + " " + getCurrencyCode();
 
+
+        var requestURL = getCookie('requestURL'); //just for testing purposes
+        var redirectResult = getCookie('redirectResult'); //just for testing purposes
         var threeds1resultCookie = getCookie('threeds1result');
         if (threeds1resultCookie != "") {
             //Coming back from a 3ds1 post redirect
-            //showFinalResultDropin(JSON.parse(threeds1resultCookie));
-            //var result = JSON.stringify(threeds1resultCookie);
-
-            //loadComponentsScripts();
-            //var result = JSON.parse(threeds1resultCookie);
             showFinalResultDropin(threeds1resultCookie);
-            //threeds1resultCookie = "";
-            document.cookie = "threeds1result=";
-            // const dropinContainer = document.getElementById("dropin-container");
-            // dropinContainer.innerHTML =
-            //     "<div class=\"adyen-checkout__status adyen-checkout__status--success\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Successful\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Successful<\/span>\r\n<\/div>"
-            // document.cookie = "threeds1result=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            // document.getElementById('localStorage').innerHTML = JSON.stringify(threeds1resultCookie);
+            document.cookie = "threeds1result=";//delete coookie
         } else {
-            //Coming back from a redirect
             //Get Callback on redirect payment methods
             const url = window.location.href
             var payload = getPayloadFromUrl(url);
@@ -462,25 +461,34 @@ const Review = {
             var detailsKey = localStorage.getItem('details.key');
             //var payload = getFromUrl(detailsKey); TBD
             var resultCode = getResultCodeFromUrl(url);
-            var paymentData = getPaymentData();
-            if (paymentData !== null) {
-                var uri_enc_paymentData = encodeURIComponent(paymentData)
-                var obj = {
-                    resultCode: "Authorised"
-                };
-                //var resultFake = JSON.stringify(obj);
-                //paymentDetails(uri_enc_paymentData,payload) interacContainer
-                //result = "{"pspReference":"851594724227366G","resultCode":"Authorised","merchantReference":"KIOSK-DROPIN","paymentMethod":"alipay","shopperLocale":"en-EN"}"
-                paymentDetails(paymentData, detailsKey, payload) //alipay
-                    .then(result => {
-                        //result = resultFake;
-                        //localStorage.removeItem('paymentData');
-                        // Your function to show the final result to the shopper.
-                        showFinalResultDropin(result);
-                        console.log('paymentDetails result: ' + result)
-                        localStorage.clear();
-                    })
-            } else loadComponentsScripts()
+
+            if (payload !== null){
+                var paymentData = getPaymentData();
+                if (paymentData !== null) {
+                    var uri_enc_paymentData = encodeURIComponent(paymentData)
+                    var obj = {
+                        resultCode: "Authorised"
+                    };
+                    //var resultFake = JSON.stringify(obj);
+                    //paymentDetails(uri_enc_paymentData,payload) interacContainer
+                    //result = "{"pspReference":"851594724227366G","resultCode":"Authorised","merchantReference":"KIOSK-DROPIN","paymentMethod":"alipay","shopperLocale":"en-EN"}"
+                    paymentDetails(paymentData, detailsKey, payload) //alipay
+                        .then(result => {
+                            //result = resultFake;
+                            //localStorage.removeItem('paymentData');
+                            // Your function to show the final result to the shopper.
+                            showFinalResultDropin(result);
+                            console.log('paymentDetails result: ' + result)
+                            localStorage.setItem('paymentResult',result);
+                            document.getElementById('localStorage').innerHTML = JSON.stringify(result);
+
+                            localStorage.clear();
+                        })
+                }
+                window.location = defaultUrl()
+          }
+           else loadComponentsScripts()
+
 
         } //else 3ds1
 
@@ -593,6 +601,51 @@ const ReviewSandbox = {
     },
 };
 
+
+
+const Demo1 = {
+    template: demo1,
+    data() {
+    },
+    mixins: [PageMixin],
+    components: {
+        BaseLayout
+    },
+    methods: {
+      generateUrl() {
+          var merchantAccount = {
+              "merchantAccount": "ElenaPerez"
+          }
+          const dataPBL = {
+              ...paymentsDefaultConfig,
+              ...merchantAccount
+          };
+          generatePayByLinkUrl(dataPBL).then(url => {
+              document.getElementById('paybylink').innerHTML = "Click here to open PayByLink url: " + url
+              document.getElementById('paybylink').href = url
+              document.getElementById("paybylink").className = "fake-link";
+
+              var qrcode = new QRCode(document.getElementById("qrcode"), {
+              	text: url,
+              	width: 128,
+              	height: 128,
+              	colorDark : "#ffffff",
+              	colorLight : "#66C4E8",//9D9D9B
+              	//correctLevel : QRCode.CorrectLevel.H
+              });
+          })
+        }
+
+    },
+    mounted() {
+      //Create Pay by link returnUrl
+      this.generateUrl()
+
+      loadComponentsScripts()
+        //localStorage.clear();
+    },
+};
+
 const Payment = {
     template: payment,
     mixins: [PageMixin],
@@ -600,7 +653,7 @@ const Payment = {
         BaseLayout
     },
     mounted() {
-        this.chekoutAPIPayment('ElenaPerez');
+        this.chekoutAPIPayment('ElenaPerezToril');
     },
     methods: {
         next() {
@@ -609,7 +662,7 @@ const Payment = {
         chekoutAPIPayment() {
             let currentObj = this;
             var data = {
-                merchantAccount: 'ElenaPerez',
+                merchantAccount: 'ElenaPerezToril',
                 reference: 'coffee',
                 amount: {
                     'currency': 'EUR',
@@ -626,9 +679,12 @@ const Payment = {
                 },
                 returnUrl: 'https://www.adyen.com'
             };
-            axios.post('https://cors-anywhere.herokuapp.com/https://checkout-test.adyen.com/v51/payments', data, {
+
+            axios.post('https://terminal-api-test.adyen.com/sync', data, {
+
+          //  axios.post('https://cors-anywhere.herokuapp.com/https://checkout-test.adyen.com/v51/payments', data, {
                     headers: {
-                        'x-api-key': ''
+                        'x-api-key': 'AQEyhmfxK4zLbxRKw0m/n3Q5qf3VaY9UCJ1+XWZe9W27jmlZirW1mE6Zk8D5ZA3Fk9cSFaoQwV1bDb7kfNy1WIxIIkxgBw==-R1ugmqSY/kRBJ4g8GYeNNbYf6AtSst0EaTcEnMsWPCU=-Ry8GyevD&rR_6Lay'
                     }
                 })
                 .then(function(response) {
@@ -722,10 +778,10 @@ const routes = [{
         }
     },
     {
-        path: "/review",
-        component: Review,
+        path: "/checkout",
+        component: Checkout,
         meta: {
-            pageTitle: "Review Order"
+            pageTitle: "Checkout Order"
         }
     },
     {
@@ -733,6 +789,13 @@ const routes = [{
         component: ReviewSandbox,
         meta: {
             pageTitle: "Review Order / ReviewSandbox"
+        }
+    },
+    {
+        path: "/demo1",
+        component: Demo1,
+        meta: {
+            pageTitle: "Demo1"
         }
     },
     {

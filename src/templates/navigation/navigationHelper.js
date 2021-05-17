@@ -15,7 +15,7 @@ const NavigationHelper = {
             return "/capsule";
         } else if (currentRoute == "/milkType") {
             return "/milkBalance";
-        } else if (currentRoute == "/review") {
+        } else if (currentRoute == "/checkout") {
             return "/";
         } else if (currentRoute == "/payment") {
             return "/";
@@ -36,12 +36,12 @@ const NavigationHelper = {
         } else if (currentRoute == "/capsule") {
             return "/milkBalance";
         } else if (currentRoute == "/milkBalance") {
-            return "/review";
+            return "/checkout";
         } else if (currentRoute == "/milkBalance") {
             return "/milkType";
         } else if (currentRoute == "/milkType") {
-            return "/review";
-        } else if (currentRoute == "/review") {
+            return "/checkout";
+        } else if (currentRoute == "/checkout") {
             return "/payment";
         } else if (currentRoute == "/payment") {
             return "/orderCompleted";

@@ -10,13 +10,15 @@ function fallbackthreedone()
   }
 
   $apikey = getenv('CHECKOUT_APIKEY');
-  $paymentDataSaved=$_COOKIE['paymentData'];
-  //$redirectResult = $_COOKIE['redirectResult'];
-
+  //$paymentDataSaved=$_COOKIE['paymentData'];
+  //$redirectResult = $_POST['redirectResult'];//$_COOKIE['redirectResult'];
+//$redirectResult = $_SERVER['redirectResult'];
+$requestURL =$_SERVER['REQUEST_URI'];
+    $redirectResult = $_GET['redirectResult'];
     $request = array(
         //'paymentData' => $paymentDataSaved,//<v66
         'details' => array(
-          'redirectResult' => $_POST['redirectResult'],
+          'redirectResult' => $redirectResult,
         //  'MD' => $_POST['MD'], //<v66
         //  'PaRes' => $_POST['PaRes'] //<v66
         )
@@ -56,8 +58,12 @@ function fallbackthreedone()
     curl_close($curlAPICall);
 
     //This file returns a JSON object
+
+    setcookie("requestURL", $requestURL, time()+30*24*60*60);
+    setcookie("redirectResult", $redirectResult, time()+30*24*60*60);
     setcookie("threeds1result", $result, time()+30*24*60*60);
-    header("Location: http://localhost:3000/#/review");
+    //setcookie("threeds1result", $result, time()+30*24*60*60);
+    header("Location: http://localhost:3000/#/checkout");
     return $result;
 }
 ?>

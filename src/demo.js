@@ -74,7 +74,6 @@ function showFinalResultDropin(response) {
 
   if (dropinContainer == null){
      dropinContainer = document.getElementById("dropin-container");
-    //document.getElementById("dropin-container");
   }
 
   dropinContainer.innerHTML = textToShow;

@@ -1,4 +1,4 @@
-var reviewOrder = `
+var checkout = `
 <base-layout @onPrev="prev" @onNext="next">
 <div class="review">
   <div id="review" class="center">
@@ -89,12 +89,30 @@ var reviewOrder = `
     <div  id="mbway-container"></div><a href="https://comprafacil2.hipay.pt/backoffice-test/MBWay/Payments.aspx?statusEnd=&statusStart=&status=&vat=&email=elena.pereztoril%40adyen.com&dateEnd=&dateStart=&phone=&operationId=" target="_blank">Go to HiPay</a>-->
 
     <!--DROPIN component-->
-
-    <div  id="payment-method" class="payment-method__container">
+    <div  id="payment-method" class="payment-method__container ">
         <div id="dropin-container" class="payment-method__container"></div>
     </div>
-    
-  <p class="center"><a id="paybylink" class="inactiveLink" href="" target="_blank" >PBL url will be shown here...please wait</a></p>
+
+
+  <div class="center">
+    <hr style="height:5px">
+    <a id="paybylink" class="inactiveLink" href="" target="_blank" >PBL url will be shown here...please wait</a>
+    </br>
+    <a style="height:5px">Scan & Pay:</a>
+    <p id="qrcode" ></p>
+  </div>
+
+
+  <canvas id="canvas" width="255" height="255">
+      This text is displayed if your browser
+      does not support HTML5 Canvas.
+  </canvas>
+
+  <!--<img id="signature" class="center" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+    AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+        9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="POS Signature" />-->
+
+
   <div id="localStorage"></div>
   <hr style="height:10px">
 

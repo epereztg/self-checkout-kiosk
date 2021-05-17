@@ -16,18 +16,18 @@ const localeflags = ['🇪🇸','🇬🇧','🇵🇹']
 
 const defaultOrigin = () => {
     if (window.location.origin.includes("heroku", 1)) {
-        return "https://coffeekiosk.herokuapp.com/#/review"
+        return "https://coffeekiosk.herokuapp.com/#/checkout"
     } else {
-       return "http://localhost:3000/#/review"
+       return "http://localhost:3000/#/checkout"
     }
 }
 
 const defaultUrl = (type) => {
     if (window.location.origin.includes("heroku", 1)) {
-        return "https://coffeekiosk.herokuapp.com/#/review"
+        return "https://coffeekiosk.herokuapp.com/#/checkout"
     } else {
         if (type == "scheme") return "http://localhost:3000/fallbackthreedone"
-        else return "http://localhost:3000/#/review"
+        else return "http://localhost:3000/#/checkout"
       }
 }
 //Drop down list utils
@@ -369,9 +369,6 @@ const paymentDetails = (paymentData, detailsKey, config = {}) => {
             if (response.error) throw 'Payment details failed';
             console.log("paymentdetails response: "+response)
 
-            // if (document.getElementById('responseFromPaymentDetails') !== null){
-            //   document.getElementById('responseFromPaymentDetails').innerHTML = JSON.stringify(response);
-            // }
             if (document.getElementById('responseFromPaymentDetails') !== null){
               var defaultRequest = document.getElementById("responseFromPaymentDetails").value;
               if (defaultRequest!== null && defaultRequest !== ''){

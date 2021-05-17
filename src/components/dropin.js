@@ -1,4 +1,5 @@
 var paymentMethodsConfiguration = {
+    locale: defaultLocale,
     shopperReference: 'paybylink_shopperreference',
     //storedPaymentMethod: storedPaymentMethod,
     // shopperInteraction: 'ContAuth',

@@ -158,3 +158,65 @@ function changeLocation() {
     localStorage.setItem('defaultCountry', sel.value)
     localStorage.setItem('countryIndex', sel.selectedIndex)
 }
+
+function parseSignature(signature) {
+  const convert = (x) => x.toUpperCase() === 'FFFF' ? -1 : parseInt(x, 16);
+  var dataPointsHEX = signature.signature.data;
+  var dataPoints = dataPointsHEX;
+
+  var points = dataPoints.slice(0, dataPointsHEX.length-1);
+  for (var i = 0; i < dataPointsHEX.length; i++){
+    var obj = dataPointsHEX[i];
+    for (var key in obj){
+      var value = obj[key];
+      dataPoints[i].x = parseInt(dataPointsHEX[i].x, 16);
+      dataPoints[i].y = parseInt(dataPointsHEX[i].y, 16);
+    }
+  }
+  //yourNumber = parseInt(hexString, 16);
+
+//const points = signature.map(( { X, Y } ) => ({ x: convert(X), y: convert(Y) }));
+
+  const max = (a, b) => a ? Math.max(a, b) : b;
+  const min = (a, b) => a ? Math.min(a, b) : b;
+
+  const minX = points.filter(({ x, y }) => x > -1).reduce((acc, { x, y }) => min(acc, x), undefined);
+  const maxX = points.filter(({ x, y }) => x > -1).reduce((acc, { x, y }) => max(acc, x), undefined);
+  const minY = points.filter(({ x, y }) => x > -1).reduce((acc, { x, y }) => min(acc, y), undefined);
+  const maxY = points.filter(({ x, y }) => x > -1).reduce((acc, { x, y }) => max(acc, y), undefined);
+
+  //const canvas = document.createElement('canvas');
+  var canvas = document.getElementById('canvas');
+  const margin = 10;
+  const width = maxX - minX;
+  const height = maxY - minY ;
+  canvas.width = width + margin * 2;
+  canvas.height = height + margin * 2;
+  canvas.style.backgroundColor = '#ffffff';
+  const ctx = canvas.getContext('2d');
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 5;
+
+  ctx.fillStyle = "red";
+  //ctx.fillRect(10, 10, 50, 50);
+
+  let connect = false;
+  points.forEach(({ x, y }) => {
+    if(x == -1 && y == -1) {
+      ctx.stroke();
+      connect = false;
+    } else if(connect) {
+      ctx.lineTo(margin + x - minX, margin + y - minY);
+      //ctx.lineTo(300, 150);
+      ctx.stroke();
+      console.log((margin + x - minX)+" "+(margin + y - minY))
+    } else {
+      ctx.beginPath();
+      //ctx.moveTo(10,10 );
+      ctx.moveTo(margin + x - minX, margin + y - minY);
+      //  console.log((margin + x - minX)+" "+(margin + y - minY))
+      connect = true;
+    }
+  });
+  return canvas;
+}
