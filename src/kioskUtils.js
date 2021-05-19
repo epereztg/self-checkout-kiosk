@@ -173,9 +173,6 @@ function parseSignature(signature) {
       dataPoints[i].y = parseInt(dataPointsHEX[i].y, 16);
     }
   }
-  //yourNumber = parseInt(hexString, 16);
-
-//const points = signature.map(( { X, Y } ) => ({ x: convert(X), y: convert(Y) }));
 
   const max = (a, b) => a ? Math.max(a, b) : b;
   const min = (a, b) => a ? Math.min(a, b) : b;
@@ -197,8 +194,7 @@ function parseSignature(signature) {
   ctx.strokeStyle = 'red';
   ctx.lineWidth = 5;
 
-  ctx.fillStyle = "red";
-  //ctx.fillRect(10, 10, 50, 50);
+  ctx.fillStyle = "black";
 
   let connect = false;
   points.forEach(({ x, y }) => {
@@ -207,14 +203,10 @@ function parseSignature(signature) {
       connect = false;
     } else if(connect) {
       ctx.lineTo(margin + x - minX, margin + y - minY);
-      //ctx.lineTo(300, 150);
       ctx.stroke();
-      console.log((margin + x - minX)+" "+(margin + y - minY))
     } else {
       ctx.beginPath();
-      //ctx.moveTo(10,10 );
       ctx.moveTo(margin + x - minX, margin + y - minY);
-      //  console.log((margin + x - minX)+" "+(margin + y - minY))
       connect = true;
     }
   });
