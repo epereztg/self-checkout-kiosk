@@ -283,6 +283,32 @@ const getPaymentMethods = () =>
           "merchantAccount": "PerfumesClubCOM"
    }
 
+   const makePOSPayment = (paymentMethod, config = {}) => {
+       //const paymentsConfig = { ...config };
+       const paymentsConfig = {
+           ...paymentsDefaultConfig,
+           ...config
+       };
+       var paymentRequest = {
+           ...paymentsConfig,
+           ...paymentMethod
+       };
+
+       return httpPost('terminalAPI', paymentRequest)
+           .then(response => {
+               if (response.error) throw 'Payment initiation failed';
+
+
+               //document.cookie = "paymentData=" + response.paymentData;
+               //document.cookie = "redirectResult=" + response.redirectResult;
+               return response;
+           })
+           .catch(error => {
+               console.log('error on makePOSPayment' + error)
+               throw Error(error);
+           });
+   };
+
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
     //const paymentsConfig = { ...config };

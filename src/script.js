@@ -652,66 +652,91 @@ const Payment = {
     components: {
         BaseLayout
     },
-    mounted() {
-        this.chekoutAPIPayment('ElenaPerezToril');
-    },
+    mounted(){
+
+        makePOSPayment()
+                .then(response => {
+                  var response = JSON.parse(response);
+                  if (response.SaleToPOIResponse.PaymentResponse == null){
+                  //if (response.data.resultCode != 'Authorised') {
+                      // router.push({
+                      //     name: 'Order Complete',
+                      //     path: '/orderCompleted'
+                      // }).catch(error => {
+                      //     if (error.name != "NavigationDuplicated") {
+                      //         throw error;
+                      //     }
+                      // });
+                  } else {
+                      // router.push({
+                      //     name: 'Order Complete',
+                      //     path: '/orderCompleted'
+                      // })
+                      // location.reload();
+                  }
+                })
+        //this.chekoutAPIPayment('ElenaPerezToril');
+      },
     methods: {
         next() {
             this.$emit("onNext");
         },
-        chekoutAPIPayment() {
-            let currentObj = this;
-            var data = {
-                merchantAccount: 'ElenaPerezToril',
-                reference: 'coffee',
-                amount: {
-                    'currency': 'EUR',
-                    'value': defaultAmount
-                },
-                reference: 'CoffeeKioskDemo TAPI',
-                paymentMethod: {
-                    'type': 'scheme',
-                    'number': '4111 1111 1111 1111',
-                    'expiryMonth': '03',
-                    'expiryYear': '2030',
-                    'holderName': 'John Smith',
-                    'cvc': '737'
-                },
-                returnUrl: 'https://www.adyen.com'
-            };
-
-            axios.post('https://terminal-api-test.adyen.com/sync', data, {
-
-          //  axios.post('https://cors-anywhere.herokuapp.com/https://checkout-test.adyen.com/v51/payments', data, {
-                    headers: {
-                        'x-api-key': 'AQEyhmfxK4zLbxRKw0m/n3Q5qf3VaY9UCJ1+XWZe9W27jmlZirW1mE6Zk8D5ZA3Fk9cSFaoQwV1bDb7kfNy1WIxIIkxgBw==-R1ugmqSY/kRBJ4g8GYeNNbYf6AtSst0EaTcEnMsWPCU=-Ry8GyevD&rR_6Lay'
-                    }
-                })
-                .then(function(response) {
-                    currentObj.output = response.data;
-                    console.log('Response!: ' + response.data.resultCode);
-                    if (response.data.resultCode != 'Authorised') {
-                        router.push({
-                            name: 'Order Complete',
-                            path: '/orderCompleted'
-                        }).catch(error => {
-                            if (error.name != "NavigationDuplicated") {
-                                throw error;
-                            }
-                        });
-                    } else {
-                        router.push({
-                            name: 'Order Complete',
-                            path: '/orderCompleted'
-                        })
-                        location.reload();
-                    }
-                })
-                .catch(function(error) {
-                    currentObj.output = error;
-                    console.log('Error!.' + error)
-                });
-        }
+        // chekoutAPIPayment() {
+        //
+        //
+        //
+        //     let currentObj = this;
+        //     var data = {
+        //         merchantAccount: 'ElenaPerezToril',
+        //         reference: 'coffee',
+        //         amount: {
+        //             'currency': 'EUR',
+        //             'value': defaultAmount
+        //         },
+        //         reference: 'CoffeeKioskDemo TAPI',
+        //         paymentMethod: {
+        //             'type': 'scheme',
+        //             'number': '4111 1111 1111 1111',
+        //             'expiryMonth': '03',
+        //             'expiryYear': '2030',
+        //             'holderName': 'John Smith',
+        //             'cvc': '737'
+        //         },
+        //         returnUrl: 'https://www.adyen.com'
+        //     };
+        //
+        //     axios.post('https://terminal-api-test.adyen.com/sync', data, {
+        //
+        //   //  axios.post('https://cors-anywhere.herokuapp.com/https://checkout-test.adyen.com/v51/payments', data, {
+        //             headers: {
+        //                 'x-api-key': 'AQEyhmfxK4zLbxRKw0m/n3Q5qf3VaY9UCJ1+XWZe9W27jmlZirW1mE6Zk8D5ZA3Fk9cSFaoQwV1bDb7kfNy1WIxIIkxgBw==-R1ugmqSY/kRBJ4g8GYeNNbYf6AtSst0EaTcEnMsWPCU=-Ry8GyevD&rR_6Lay'
+        //             }
+        //         })
+        //         .then(function(response) {
+        //             currentObj.output = response.data;
+        //             console.log('Response!: ' + response.data.resultCode);
+        //             if (response.data.resultCode != 'Authorised') {
+        //                 router.push({
+        //                     name: 'Order Complete',
+        //                     path: '/orderCompleted'
+        //                 }).catch(error => {
+        //                     if (error.name != "NavigationDuplicated") {
+        //                         throw error;
+        //                     }
+        //                 });
+        //             } else {
+        //                 router.push({
+        //                     name: 'Order Complete',
+        //                     path: '/orderCompleted'
+        //                 })
+        //                 location.reload();
+        //             }
+        //         })
+        //         .catch(function(error) {
+        //             currentObj.output = error;
+        //             console.log('Error!.' + error)
+        //         });
+        // }
     }
 };
 
