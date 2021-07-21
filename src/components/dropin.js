@@ -5,7 +5,8 @@ var paymentMethodsConfiguration = {
     // shopperInteraction: 'ContAuth',
     // recurringProcessingModel: 'CardOnFile',
     //storedPaymentMethodId : 8315892815997642,
-    showStoredPaymentMethods: true,
+
+
     paywithgoogle: { // Example required configuration for Google Pay
         environment: "TEST", // Change this to PRODUCTION when you're ready to accept live Google Pay payments
         configuration: {
@@ -26,7 +27,7 @@ var paymentMethodsConfiguration = {
     mbway: {
         data: {
             email: defaultShopperReference,
-            phoneNumber: '+351213822199',
+            phoneNumber: '+341213822199',
             showCountdownTimer: true
         }
     },
@@ -88,6 +89,8 @@ getPaymentMethods().then(paymentMethodsResponse => {
     const checkout = new AdyenCheckout({
         paymentMethodsConfiguration: paymentMethodsConfiguration,
         onSubmit: (state, component) => {
+          if (state.isValid) {
+            console.log("is valid");
             makePayment(state.data)
                 .then(response => {
                     if (response.action) {
@@ -117,6 +120,7 @@ getPaymentMethods().then(paymentMethodsResponse => {
                     console.log('error on makePayment' + error)
                     throw Error(error);
                 });
+              }
         },
         onAdditionalDetails: (state, dropin) => {
             paymentDetails(state.data)
@@ -186,6 +190,8 @@ getPaymentMethods().then(paymentMethodsResponse => {
     // 2. Create and mount the Component
     const dropin = checkout
         .create('dropin', {
+
+          billingAddressRequired: true,
           data: {
             firstName: 'Testname'
           }

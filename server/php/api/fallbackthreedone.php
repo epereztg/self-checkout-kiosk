@@ -15,6 +15,7 @@ function fallbackthreedone()
 //$redirectResult = $_SERVER['redirectResult'];
 $requestURL =$_SERVER['REQUEST_URI'];
     $redirectResult = $_GET['redirectResult'];
+    //$redirectResult  = urldecode($redirectResult);
     $request = array(
         //'paymentData' => $paymentDataSaved,//<v66
         'details' => array(
@@ -62,8 +63,15 @@ $requestURL =$_SERVER['REQUEST_URI'];
     setcookie("requestURL", $requestURL, time()+30*24*60*60);
     setcookie("redirectResult", $redirectResult, time()+30*24*60*60);
     setcookie("threeds1result", $result, time()+30*24*60*60);
+    setcookie("paymentDetailsString", $paymentDetailsString, time()+30*24*60*60);
     //setcookie("threeds1result", $result, time()+30*24*60*60);
     header("Location: http://localhost:3000/#/checkout");
     return $result;
+    //echo "requestURL is $requestURL";
+    //echo "redirectResult is $redirectResult";
+    //echo "threeds1result is $result";
+    //return $result;
+    //return $result;
+    
 }
 ?>

@@ -1,8 +1,8 @@
-var demo1  = `
-<div class="demo1">
+var demo2  = `
+<div class="demo2">
   <link rel="stylesheet" href="./demo1.css">
   <img src="./img/demo1logo.jpeg" alt="logo" />
-  <h1 class="center">demo1</h1>
+  <h1 class="center">demo2</h1>
 
   <div class="demo1Options">
 
@@ -12,9 +12,10 @@ var demo1  = `
     </div>
   </div>
 
-    <div id="sandbox" class="right">
-      <button type="submit" onclick="dropin.submit()" value="Submit">Confirm Order</button>
-    </div>
+<button style="background:green" type="submit" onclick="window.location = 'http://localhost:3000/#/demo1'" value="Submit">New payment</button>
+  <div  id="payment-method">
+      <div id="card-container" class="payment-method__container"></div>
+   </div>
   </div>
 </div>
 </base-layout>

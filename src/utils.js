@@ -1,5 +1,5 @@
 const defaultCurrency = localStorage.getItem('defaultCurrency')!=null ? localStorage.getItem('defaultCurrency') : 'EUR';
-const defaultCountry = localStorage.getItem('defaultCountry')!=null ? localStorage.getItem('defaultCountry'): 'NL';
+const defaultCountry = localStorage.getItem('defaultCountry')!=null ? localStorage.getItem('defaultCountry'): 'ES';
 const defaultLocale = localStorage.getItem('defaultLocale')!=null ? localStorage.getItem('defaultLocale') : 'en-GB';
 const defaultAmount = Math.floor(Math.random() * 100000)
 const defaultShopperReference = localStorage.getItem('shopperReference')!=null ? localStorage.getItem('shopperReference'):'mail@adyen.com'
@@ -7,18 +7,18 @@ const defaultRequest= localStorage.getItem('requestToPayments')!=null ? localSto
 
 const defaultShopperStatement= "test_c1"
 
-const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN','KR', 'AU']
-const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Deutschland','France','China', 'Korea','Australia']
+const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN','KR', 'AU', 'CH','GB']
+const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Germany','France','China', 'Korea','Australia', 'Switzerland', 'UK']
 const locale = ['es-ES','en-GB','pt-PT']
 const currencies = ['EUR','GBP','USD','CNY','SEK','MXN','NOK','KRW','AUD']
-const flags = ['🇪🇸','🇧🇪','🇳🇴','🇲🇽','🇳🇱','🇵🇹','🇦🇹','🇸🇪','🇩🇪','🇫🇷','🇨🇳','🇰🇷','🇦🇺']
+const flags = ['🇪🇸','🇧🇪','🇳🇴','🇲🇽','🇳🇱','🇵🇹','🇦🇹','🇸🇪','🇩🇪','🇫🇷','🇨🇳','🇰🇷','🇦🇺', '🇨🇭', '🇬🇧']
 const localeflags = ['🇪🇸','🇬🇧','🇵🇹']
 
 const defaultOrigin = () => {
     if (window.location.origin.includes("heroku", 1)) {
         return "https://coffeekiosk.herokuapp.com/#/checkout"
     } else {
-       return "http://localhost:3000/#/checkout"
+       return window.location.href//"http://localhost:3000/#/checkout"
     }
 }
 
@@ -27,7 +27,7 @@ const defaultUrl = (type) => {
         return "https://coffeekiosk.herokuapp.com/#/checkout"
     } else {
         if (type == "scheme") return "http://localhost:3000/fallbackthreedone"
-        else return "http://localhost:3000/#/checkout"
+        else return window.location.href//"http://localhost:3000/#/checkout"
       }
 }
 //Drop down list utils
@@ -105,8 +105,8 @@ const paymentMethodsConfig = {
 const paymentsDefaultConfig = {
     //shopperReference: 'Checkout Components sample code test',
     channel: 'Web',
-    returnUrl: defaultUrl,
-    origin: defaultOrigin,
+    returnUrl: defaultUrl(),
+    origin: defaultOrigin(),
     reference: 'KIOSK-DROPIN',
     dateOfBirth: '1970-01-01',
     shopperReference: defaultShopperReference,
@@ -244,46 +244,7 @@ const getPaymentMethods = () =>
    //    "storeDetails": false
    // },
 
-   var perfu = {
-          "amount": {
-                "currency": "EUR",
-                "value": 6014
-          },
-          "channel": "Web",
-          "countryCode": "BE",
-          "lineItems": [
-                {
-                       "amountIncludingTax": 5615,
-                       "description": "INVICTUS edt vapo 100 ml",
-                       "id": "53983",
-                       "productUrl": "https://www.localhost/es/paco-rabanne/invictus-eau-de-toilette-vaporizador/p_39012/",
-                       "quantity": 1
-                },
-                {
-                       "amountIncludingTax": 399,
-                       "description": "Gastos de envío",
-                       "id": "handling",
-                       "quantity": 1
-                }
-          ],
-          "paymentMethod": {
-                "type": "scheme",
-                "brand": "bcmc",
-                "storedPaymentMethodId": "8316196909890641"
-          },
-          "recurringProcessingModel": "CardOnFile",
-          "reference": "A140005209",
-          "returnUrl": "http://localhost:3000",
-          "shopperEmail": "alberto.vives@perfumesclub.com",
-          "shopperInteraction": "ContAuth",
-          "shopperLocale": "es_ES",
-          "shopperReference": "mail@adyen.com",
-          "storePaymentMethod": false,
-          "telephoneNumber": "+34666666666",
-          "merchantAccount": "PerfumesClubCOM"
-   }
-
-   const makePOSPayment = (paymentMethod, config = {}) => {
+const makePOSPayment = (paymentMethod, config = {}) => {
        //const paymentsConfig = { ...config };
        const paymentsConfig = {
            ...paymentsDefaultConfig,
@@ -308,6 +269,164 @@ const getPaymentMethods = () =>
                throw Error(error);
            });
    };
+
+   // "threeDS2RequestData" : {
+   //    "deviceChannel" : "browser",
+   //    "notificationURL" : "http://localhost:3000/#/checkout",
+   //    "threeDSCompInd" : "Y"
+   // },
+
+   var ele ={
+   "merchantAccount" : "ElenaPerez",
+   "shopperReference" : "000303631af0a1421-d8b9-4943-8177-d1031a832328",
+   "shopperEmail" : "kpett@mayborngroup.com",
+   "telephoneNumber" : "07850164677",
+   "shopperName" : {
+      "firstName" : "Kirsten",
+      "lastName" : "Pett"
+   },
+   "countryCode" : "GB",
+   "shopperLocale" : "en_GB",
+   "shopperIP" : "141.101.99.50",
+   "billingAddress" : {
+      "street" : "60 Cecil Road",
+      "postalCode" : "EX2 9AQ",
+      "city" : "Exeter",
+      "houseNumberOrName" : "N\/A",
+      "country" : "GB",
+      "stateOrProvince" : "Devon"
+   },
+   "deliveryAddress" : {
+      "street" : "60 Cecil Road",
+      "postalCode" : "EX2 9AQ",
+      "city" : "Exeter",
+      "houseNumberOrName" : "N\/A",
+      "country" : "GB",
+      "stateOrProvince" : "Devon"
+   },
+   "amount" : {
+      "currency" : "GBP",
+      "value" : 13498
+   },
+   "reference" : "000303631",
+   "fraudOffset" : "0",
+   "browserInfo" : {
+      "userAgent" : "Mozilla\/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit\/605.1.15 (KHTML, like Gecko) CriOS\/91.0.4472.80 Mobile\/15E148 Safari\/604.1",
+      "acceptHeader" : "*\/*"
+   },
+   "shopperInteraction" : "Ecommerce",
+   "recurringProcessingModel" : "Subscription",
+   "paymentMethod" : {
+      "type" : "klarna_account"
+   },
+   "riskData" : {
+      "clientData" : "eyJ2ZXJzaW9uIjoiMS4wLjAiLCJkZXZpY2VGaW5nZXJwcmludCI6IjFCMk0yWThBc2cwMDAwMDAwMDAwMDAwMDAwQlRXRGZZWlZSMzAwMTIxNjUyMTZjVkI5NGlLekJHQzZRRTJWVXVTZTFCMk0yWThBc2cwMDBZWlhjWEl5SlM3MDAwMDBobjVYdjAwMDAweFBXVDBHVnBtN0dpaTJDRm5HSWM6MjAiLCJwZXJzaXN0ZW50Q29va2llIjpbXSwiY29tcG9uZW50cyI6eyJ1c2VyQWdlbnQiOiIzOThlMjdmMTUwZjFlODEyODVjNzdiZWJhMzVjNGUyZiIsIndlYmRyaXZlciI6MCwibGFuZ3VhZ2UiOiJlbi1nYiIsImNvbG9yRGVwdGgiOjMyLCJwaXhlbFJhdGlvIjoyLCJzY3JlZW5XaWR0aCI6ODk2LCJzY3JlZW5IZWlnaHQiOjQxNCwiYXZhaWxhYmxlU2NyZWVuV2lkdGgiOjg5NiwiYXZhaWxhYmxlU2NyZWVuSGVpZ2h0Ijo0MTQsInRpbWV6b25lT2Zmc2V0IjotNjAsInRpbWV6b25lIjoiRXVyb3BlL0xvbmRvbiIsInNlc3Npb25TdG9yYWdlIjoxLCJsb2NhbFN0b3JhZ2UiOjEsImluZGV4ZWREYiI6MSwiYWRkQmVoYXZpb3IiOjAsIm9wZW5EYXRhYmFzZSI6MCwicGxhdGZvcm0iOiJpUGhvbmUiLCJwbHVnaW5zIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAiLCJjYW52YXMiOiJmMGJmYTQzOWQ4NjhmYjRjNmU3NzVhZGZmZTMzNGM1ZSIsIndlYmdsIjoiZjQ3ZWZmNjFkOTg1NzI1ZTcwMjg0Y2ExYWUwNWI1MWUiLCJ3ZWJnbFZlbmRvckFuZFJlbmRlcmVyIjoiQXBwbGUgSW5jLn5BcHBsZSBHUFUiLCJhZEJsb2NrIjowLCJoYXNMaWVkTGFuZ3VhZ2VzIjowLCJoYXNMaWVkUmVzb2x1dGlvbiI6MCwiaGFzTGllZE9zIjowLCJoYXNMaWVkQnJvd3NlciI6MCwiZm9udHMiOiI5YzVlZDFkMWY0ZGU2ZDgzNzA0ODRlZDU2MWU1NmNiNyIsImF1ZGlvIjoiZmVhMTJiMWNjZWY0NTAwOTQ1N2Q1ZDY4NDI2NzQ2NDgiLCJlbnVtZXJhdGVEZXZpY2VzIjoiMTg2YWIyYWQ5Mjg0YTVkMWU3MjEwZjQwYzZiOGY1MWMifX0="
+   },
+   "returnUrl" : "http://localhost:3000/#/checkout",
+   "lineItems" : [
+      {
+         "id" : "2165854",
+         "description" : "Perfect Prep™ Day & Night (+3 filters)",
+         "quantity" : 1,
+         "taxCategory" : "Taxable Goods",
+         "taxPercentage" : 2000,
+         "amountIncludingTax" : 12999
+      },
+      {
+         "id" : "2165860",
+         "description" : "Perfect Prep™ Replacement Filter - 2 pack",
+         "quantity" : 1,
+         "taxCategory" : "Taxable Goods",
+         "taxPercentage" : 2000,
+         "amountIncludingTax" : 0
+      },
+      {
+         "id" : "2165863",
+         "description" : "Disposable Breast Pads - 50 pack",
+         "quantity" : 1,
+         "taxCategory" : "Taxable Goods",
+         "taxPercentage" : 2000,
+         "amountIncludingTax" : 499
+      }
+   ],
+   "additionalData" : {
+      "allow3DS2" : true
+   },
+   "origin" : "http://localhost:3000/#/checkout",
+   "channel" : "web",
+
+}
+
+
+
+var perf = {
+   "amount" : {
+      "currency" : "EUR",
+      "value" : 5503
+   },
+   "billingAddress" : {
+      "street" : "60 Cecil Road",
+      "postalCode" : "EX2 9AQ",
+      "city" : "Exeter",
+      "houseNumberOrName" : "N\/A",
+      "country" : "GB",
+      "stateOrProvince" : "Devon"
+   },
+   "channel" : "Web",
+   "countryCode" : "DE",
+   "deliveryAddress" : {
+      "city" : "Reading",
+      "country" : "GB",
+      "houseNumberOrName" : "",
+      "postalCode" : "RG1 7UD",
+      "street" : "6 Downshire Square"
+   },
+   "lineItems" : [
+      {
+         "amountIncludingTax" : 4872,
+         "description" : "GENIFIQUE activateur de jeunesse crème 50 ml",
+         "id" : "25907",
+         "productUrl" : "https:\/\/www.localhost\/es\/lancome\/genifique-activateur-de-jeunesse-creme\/p_90580\/",
+         "quantity" : 1
+      },
+      {
+         "amountIncludingTax" : 0,
+         "description" : "5 th AVENUE edp vapo 75 ml",
+         "id" : "7252",
+         "productUrl" : "https:\/\/www.localhost\/es\/elizabeth-arden\/5-th-avenue-eau-de-perfume-vaporizador\/p_5671\/",
+         "quantity" : 1
+      },
+      {
+         "amountIncludingTax" : 631,
+         "description" : "Gastos de envío",
+         "id" : "handling",
+         "quantity" : 1
+      }
+   ],
+   "origin" : "http://localhost:3000/#/checkout",
+   "paymentMethod" : {
+      "type" : "klarna_account"
+   },
+   "reference" : "A140005389",
+   "returnUrl" : "http://localhost:3000/#/checkout",
+   "shopperEmail" : "alberto.vives@perfumesclub.com",
+"shopperLocale": "en_GB",
+   "shopperName" : {
+      "firstName" : "Albert",
+      "lastName" : "Vives Peraita"
+   },
+   "shopperReference" : "1834780",
+   "storePaymentMethod" : false,
+   "telephoneNumber" : "+447777777777",
+   "threeDS2RequestData" : {
+      "deviceChannel" : "browser"
+   },
+   "merchantAccount" : "ElenaPerez",
+   "additionalData" : {
+      "allow3DS2" : "true"
+   }
+}
+
 
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
@@ -349,6 +468,9 @@ const makePayment = (paymentMethod, config = {}) => {
             }
             //document.cookie = "paymentData=" + response.paymentData;
             //document.cookie = "redirectResult=" + response.redirectResult;
+            var obj = response
+            console.log('paymentResponse: ',obj)
+
             return response;
         })
         .catch(error => {
@@ -373,8 +495,8 @@ const paymentDetails = (paymentData, detailsKey, config = {}) => {
                 //[detailsKey]: config
             }
         }
-    }
-  else {
+     }
+   else {
     paymentRequest =
         paymentData
 
