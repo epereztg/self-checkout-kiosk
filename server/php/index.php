@@ -59,7 +59,7 @@ switch($request_uri[0]) {
         header('Content-Type: application/json');
         echo initiateTerminalAPI();
         break;
-    // default
+
     default:
         return false;
 

@@ -25,16 +25,22 @@ var paymentMethodsConfiguration = {
         }
     },
     mbway: {
-        data: {
-            email: defaultShopperReference,
-            phoneNumber: '+341213822199',
-            showCountdownTimer: true
+      data:{
+        email: defaultShopperReference,
+        phoneNumber: '+351213822199',
+        showCountdownTimer: true
         }
     },
+   storedCard: { // Example optional configuration for Cards
+     hideCVC: true, // Change this to true to hide the CVC field for stored cards
+   },
     card: {
+        onBinLookup: (binLookupInfo) => {
+          console.log(binLookupInfo)
+        },
         hasHolderName: true,
         holderNameRequired: true,
-        hideCVC: false, // Change this to true to hide the CVC field for stored cards
+        //hideCVC: true, // Change this to true to hide the CVC field for stored cards
         name: 'Pay with card',
         data: {
             holderName: 'Mr Mrs. Shopper'
@@ -159,6 +165,9 @@ getPaymentMethods().then(paymentMethodsResponse => {
         onSelect: activeComponent => {
           console.log('activeComponent:' + activeComponent)
         },
+        onBinLookup: (binLookupInfo) => {
+          console.log(binLookupInfo)
+        },
         onChange: state => {
 
         },
@@ -177,7 +186,6 @@ getPaymentMethods().then(paymentMethodsResponse => {
         environment: 'test',
         countryCode: getCountryCode(),
         clientKey: "test_E3XT7DO34FETRCDF4XFV5XX2GMRW3TQZ",
-        //clientKey: "test_NUXZ3ABL2BDDFHGXNZRDN3G5JYLOSM53",
         paymentMethodsResponse: paymentMethodsResponse,
         removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
         enableStoreDetails: true
@@ -190,11 +198,11 @@ getPaymentMethods().then(paymentMethodsResponse => {
     // 2. Create and mount the Component
     const dropin = checkout
         .create('dropin', {
-
           billingAddressRequired: true,
           data: {
             firstName: 'Testname'
           }
         })
+
         .mount('#dropin-container')
 });

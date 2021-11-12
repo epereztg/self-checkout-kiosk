@@ -19,8 +19,8 @@ var payment = `
   </tr>
 </table>
 <div class="review center">
-  <h1>{{defaultAmount/100}} €</h1>
-  <h2>Please pay with your band!</h2>
+  <big style="font-size:400px;">{{defaultAmount/100}} €</big>
+  <h2>Please pay on the terminal with your card!</h2>
   <h1>↘↘↘↘↘↘↘</h1>
 </div>
 </base-layout>

@@ -705,8 +705,13 @@ const Checkout = {
             }
         }
 
-        var canvas = parseSignature(signature);
+        //var canvas = parseSignature(signature);
 
+        var showSignatureInCanvas = false;
+        var canvas=null;
+        if (showSignatureInCanvas==true){
+           canvas = parseSignature(signature);
+        }
         //Set country code
         document.getElementById('countries').getElementsByTagName('option')[getCountryIndex()].selected = 'selected'
         //Set Shopperlocale
@@ -723,14 +728,20 @@ const Checkout = {
         var threeds1resultCookie = getCookie('threeds1result');
         var paymentDetailsString = getCookie('paymentDetailsString');
 
+        //POS
+        var posResultCookie = localStorage.getItem('posResult');
 
-        if (threeds1resultCookie != "") {
+        if (threeds1resultCookie != null && threeds1resultCookie != "") {
             //Coming back from a 3ds1 post redirect
             showFinalResultDropin(threeds1resultCookie);
-            document.cookie = "threeds1resultCookie="; //delete coookie
-      
-
-        } else {
+            //document.cookie = "threeds1resultCookie="; //delete coookie
+            document.cookie = "threeds1result=";
+        }
+        else if (posResultCookie!=null && posResultCookie!=""){
+          localStorage.setItem('posResult', "");
+            showFinalResultPOS(JSON.parse(posResultCookie));
+        }
+        else {
             //Get Callback on redirect payment methods
             const url = window.location.href
             var payload = getPayloadFromUrl(url);
@@ -760,9 +771,10 @@ const Checkout = {
                             document.getElementById('localStorage').innerHTML = JSON.stringify(result);
 
                             localStorage.clear();
+                            window.location = defaultOrigin()
                         })
                 }
-                window.location = defaultUrl()
+                //window.location = defaultUrl()
             } else loadComponentsScripts()
 
 
@@ -1008,24 +1020,34 @@ const Payment = {
 
         makePOSPayment()
             .then(response => {
-                var response = JSON.parse(response);
-                if (response.SaleToPOIResponse.PaymentResponse == null) {
-                    //if (response.data.resultCode != 'Authorised') {
-                    // router.push({
-                    //     name: 'Order Complete',
-                    //     path: '/orderCompleted'
-                    // }).catch(error => {
-                    //     if (error.name != "NavigationDuplicated") {
-                    //         throw error;
-                    //     }
-                    // });
-                } else {
-                    // router.push({
-                    //     name: 'Order Complete',
-                    //     path: '/orderCompleted'
-                    // })
-                    // location.reload();
-                }
+                //var response = JSON.parse(response);
+                //localStorage.setItem('posResult',  JSON.stringify(response))
+                localStorage.setItem('posResult', response);
+                router.push({
+                    name: 'Order Complete',
+                    path: '/checkout'
+                })
+                location.reload();
+
+                // if (response.SaleToPOIRequest.EventNotification.EventToNotify == 'Reject') {
+                //     if (response.data.resultCode != 'Authorised') {
+                //     router.push({
+                //         name: 'Order Complete',
+                //         path: '/orderCompleted'
+                //     }).catch(error => {
+                //         if (error.name != "NavigationDuplicated") {
+                //             throw error;
+                //         }
+                //     });
+                //   }
+                // } else {
+                //     router.push({
+                //         name: 'Order Complete',
+                //         path: '/checkout'
+                //     })
+                //     showFinalResultDropin(JSON.stringify(response));
+                //     //location.reload();
+                // }
             })
         //this.chekoutAPIPayment('ElenaPerezToril');
     },
