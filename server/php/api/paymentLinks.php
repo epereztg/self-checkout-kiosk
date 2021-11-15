@@ -17,15 +17,15 @@ function initiatePaymentLinks() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    $url = "https://checkout-test.adyen.com/v52/paymentLinks";
+    $url = "https://checkout-test.adyen.com/v67/paymentLinks";
 
     $data = [
         'amount' => [
             'currency' => 'EUR',
             'value' => 1000
         ],
-        'description'=> 'Need my coffee',
-        'reference' => 'Coffee Kiosk Order Reference',
+        'description'=> 'My Kiosk order',
+        'reference' => 'Self Checkout Kiosk Order Reference',
         'reusable' =>  true,
         'merchantAccount' => $merchantAccount
         //'expiresAt'=> '2020-10-02T12:25:28Z' ,

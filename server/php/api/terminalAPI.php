@@ -5,11 +5,6 @@
  * /paymentMethods Documentation: https://docs.adyen.com/api-explorer/#/PaymentSetupAndVerificationService/v40/paymentMethods
  */
 
-/**
- * Retrieves payment methods
- * from your merchant account
- */
-//function getPaymentMethods() {
 function initiateTerminalAPI() {
     if (file_get_contents('php://input') != '') {
         $request = json_decode(file_get_contents('php://input'), true);
@@ -24,19 +19,6 @@ function initiateTerminalAPI() {
 
     $serviceID = rand(5, 99999);
     $date_utc = date('Y-m-d\TH:i:s');
-
-    // $header = [
-    //     'MessageHeader'=> [
-    //       'ProtocolVersion'=> '3.0',
-    //       'MessageClass'=> 'Service',
-    //       'MessageCategory'=> 'Payment',
-    //       'MessageType'=> 'Request',
-    //       'SaleID'=> 'BTQAMS-10901',
-    //       'ServiceID'=> strval($serviceID),
-    //       //'POIID'=>'V400m-346715581'
-    //       'POIID'=>'S1EL-000150203407529'
-    //     ]
-    //   ];
 
     //$saleToPOIRequest = array_merge($header, $request);
     //$json_data = json_encode($saleToPOIRequest);
@@ -78,6 +60,4 @@ function initiateTerminalAPI() {
 
     // This file returns a JSON object
     return json_encode($result);
-
-//$result;
 }

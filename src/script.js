@@ -86,14 +86,22 @@ const Home = {
         return {
             size: null,
             choices: {
-                small: {
-                    icon: "fa-coffee",
-                    text: "Small"
+                kiosk: {
+                    icon: "fa-hand-pointer",
+                    text: "Self Checkout Kiosk",
+                    path: "#/kioskHome"
                 },
-                medium: {
-                    icon: "fa-coffee",
-                    text: "Medium"
+                ecom: {
+                    icon: "fa-thumbs-up",
+                    text: "Ecommerce",
+                    path: "#/checkout"
+                },
+                pos: {
+                    icon: "fa-hand-point-down",
+                    text: "Point Of Sale",
+                    path: "#/payment"
                 }
+
             }
         };
     },
@@ -108,6 +116,10 @@ const Home = {
     methods: {
         async preNextAction() {
             //localStorage.setItem('shopperReference', document.getElementById("shopperReference").innerHTML)
+        },
+        addToCart: function(text) {
+          this.channel = text;
+          localStorage.setItem("channelOption", text)
         }
     }
 };
@@ -310,6 +322,60 @@ const MilkBalance = {
     }
 };
 
+
+const Options = {
+    template: options,
+    data() {
+        return {
+            size: null,
+            choices: {
+                small: {
+                    icon: "fa-bolt",
+                    text: "Pay Now"
+                },
+                medium: {
+                    icon: "fa-calendar",
+                    text: "Pay Later"
+                }
+            }
+        };
+    },
+    mixins: [PageMixin],
+    components: {
+        BaseLayout,
+        PageNav
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.option = vm.$store.state.option;
+        });
+    },
+    methods: {
+      addToCart: function(text) {
+        this.option = text;
+        localStorage.setItem("paymentOption", text)
+      }
+    }
+};
+
+
+
+const PayLater = {
+    template: payLater,
+    data() {
+        return {
+            componentKey: 0,
+        }
+    },
+    mixins: [PageMixin],
+    components: {
+        BaseLayout,
+        PageNav
+    },
+    methods: {
+    }
+};
+
 const Checkout = {
     template: checkout,
     data() {
@@ -319,7 +385,8 @@ const Checkout = {
     },
     mixins: [PageMixin],
     components: {
-        BaseLayout
+        BaseLayout,
+        PageNav
     },
     created() {
         //console.log('created');
@@ -1174,6 +1241,20 @@ const routes = [{
         component: MilkBalance,
         meta: {
             pageTitle: "Milk Balance"
+        }
+    },
+    {
+        path: "/options",
+        component: Options,
+        meta: {
+            pageTitle: "Payment Options"
+        }
+    },
+    {
+        path: "/payLater",
+        component: PayLater,
+        meta: {
+            pageTitle: "Buy Now, Pay Later"
         }
     },
     {

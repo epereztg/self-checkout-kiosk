@@ -66,7 +66,7 @@ h1, h2, h3 {
 }
 
 .contain main {
-  background: rgba(0,0,0,0.2);
+  background: #20304C;
   position: absolute;
   top: 100px;
   bottom: 100px;
@@ -78,13 +78,37 @@ h1, h2, h3 {
   /* min-height:100%;  */
 }
 
-.contain main .home {
-  /* padding: 40px 10px; */
+/* .contain main .home {
+
   padding: 20px 10px
   width: 100%;
   height: 100%;
+} */
+.contain main .home{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr ;
+  grid-template-rows: 1fr;
+  width: 100%;
+  height: 50%;
+  justify-items: stretch;
+  text-align: center;
+  align-items: center;
+  /* background: url("./img/BackgroundCoffee.png"); */
+  background-size: cover
 }
 
+ .contain main .home .b .icon {
+  color: #FFFFFF;
+  font-size: 2em;
+  align-items: center;
+  line-height: 1;
+}
+
+.contain main .home .b {
+  font-size: 2.5em;
+  align-items: center;
+  line-height: 1;
+}
 .contain main .size{
   display: grid;
   grid-template-columns: 1fr 1fr ;
@@ -154,6 +178,29 @@ h1, h2, h3 {
   font-size: 6em;
   line-height: 1;
 }
+
+
+.contain main .options{
+  display: grid;
+  grid-template-columns: 1fr  1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+  height: 100%;
+  justify-items: stretch;
+  text-align: center;
+  align-items: center;
+  background: url("./img/BackgroundCoffee.png");
+  background-size: cover
+}
+
+
+.contain main .options .b .icon {
+  color: #0ABF53;
+  /* padding-right: 30px; */
+  font-size: 12em;
+  line-height: 1;
+}
+
 .contain main .review {
   /* padding: 40px 10px; */
   /* background: url("./img/BackgroundCoffee.png"); */

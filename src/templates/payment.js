@@ -1,6 +1,8 @@
 var payment = `
 <base-layout @onPrev="prev" @onNext="next">
+<!--
 <table align="center">
+
   <tr>
      <td>Coffee size</td>
      <td>{{ $store.state.size }}</td>
@@ -18,6 +20,9 @@ var payment = `
      <td>{{ $store.state.milkBalance }}</td>
   </tr>
 </table>
+-->
+
+
 <div class="review center">
   <big style="font-size:400px;">{{defaultAmount/100}} €</big>
   <h2>Please pay on the terminal with your card!</h2>

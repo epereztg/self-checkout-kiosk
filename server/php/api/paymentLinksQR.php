@@ -29,8 +29,8 @@ function initiatePaymentLinksQR($link) {
         'description'=> 'Need my coffee',
         'reference' => 'Coffee Kiosk Order Reference',
         'reusable' =>  true,
-        'merchantAccount' => $merchantAccount,
-        'expiresAt'=> '2020-10-2T12:25:28Z' ,
+        'merchantAccount' => $merchantAccount//,
+        //'expiresAt'=> '2020-10-2T12:25:28Z' ,
     ];
 
     // Convert data to JSON

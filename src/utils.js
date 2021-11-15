@@ -258,7 +258,6 @@ const httpPost = (endpoint, data) =>
 
 // Get all available payment methods from the local server
 const getPaymentMethods = () =>
-
     httpPost('paymentMethods', paymentMethodsConfig)
     .then(response => {
         if (response.error) throw 'No paymentMethods available';
@@ -429,9 +428,16 @@ const paymentLinks = (paymentData) => {
     paymentRequest.amount.value = parseInt(getAmount());
     paymentRequest.amount.currency = getCurrencyCode();
     paymentRequest.returnUrl = defaultUrl();
-    paymentRequest.origin = defaultUrl();
+    //paymentRequest.origin = defaultUrl();
     paymentRequest.shopperReference = defaultShopperReference;
 
+    delete paymentRequest['origin'];
+    delete paymentRequest['channel'];
+    delete paymentRequest['dateOfBirth'];
+    delete paymentRequest['shopperIP'];
+    delete paymentRequest['threeDS2RequestData'];delete paymentRequest['shopperStatement'];
+///"allowedPaymentMethods":["ideal","giropay"]
+//paymentRequest.allowedPaymentMethods = ["facilypay_3x, facilypay_3x, klarna_account"]
     return httpPostnoJson('paymentLinks', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';

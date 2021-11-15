@@ -1,5 +1,7 @@
+  var forDeletion = ['paysafecard', 'c_cash', 'paypal'];
 var paymentMethodsConfiguration = {
     locale: defaultLocale,
+
     shopperReference: 'paybylink_shopperreference',
     //storedPaymentMethod: storedPaymentMethod,
     // shopperInteraction: 'ContAuth',
@@ -90,7 +92,9 @@ var paymentMethodsConfiguration = {
 
 var dropinComponent =
     paymentMethodsConfig.shopperReference = defaultShopperReference
-getPaymentMethods().then(paymentMethodsResponse => {
+    getPaymentMethods().then(paymentMethodsResponse => {
+
+    //var removePaymentMethods = ["facilypay_3x", "facilypay_4x", "klarna_account"];
     // 1. Create an instance of AdyenCheckout
     const checkout = new AdyenCheckout({
         paymentMethodsConfiguration: paymentMethodsConfiguration,
@@ -188,8 +192,14 @@ getPaymentMethods().then(paymentMethodsResponse => {
         clientKey: "test_E3XT7DO34FETRCDF4XFV5XX2GMRW3TQZ",
         paymentMethodsResponse: paymentMethodsResponse,
         removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
+
+        //paymentMethodsResponse =
+        //removePaymentMethods:["facilypay_3x", "facilypay_4x", "klarna_account"],
         enableStoreDetails: true
     });
+
+    //if (window.location.hash.includes("payLater");
+      //paymentMethodsConfig.allowedPaymentMethods =  ["facilypay_3x", "facilypay_4x", "klarna_account"]
 
     const storedPaymentMethod = paymentMethodsResponse.storedPaymentMethods != null ?
         paymentMethodsResponse.storedPaymentMethods[0] :

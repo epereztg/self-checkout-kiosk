@@ -15,8 +15,13 @@ const NavigationHelper = {
             return "/capsule";
         } else if (currentRoute == "/milkType") {
             return "/milkBalance";
-        } else if (currentRoute == "/checkout") {
-            return "/";
+        } else if (currentRoute == "/milkBalance") {
+            return "/capsule";
+        } else if (currentRoute == "/options") {
+            return "/milkBalance";
+        }
+        else if (currentRoute == "/checkout") {
+            return "/milkBalance";
         } else if (currentRoute == "/payment") {
             return "/";
         } else if (currentRoute == "/orderCompleted") {
@@ -26,9 +31,15 @@ const NavigationHelper = {
         }
     },
     next(currentRoute) {
-        if (currentRoute == "/") {
-            return "/kioskHome";
-        }
+      if (currentRoute == "/") {
+          //if (store.state.option == "Pay Later") return "/payLater"
+          if (localStorage.getItem("channelOption")=="Self Checkout Kiosk") return "/kioskHome"
+          else if (localStorage.getItem("channelOption")=="Ecommerce") return "/checkout"
+          else return "/payment"
+      }
+        // if (currentRoute == "/") {
+        //     return "/kioskHome";
+        // }
         else if (currentRoute == "/kioskHome") {
             return "/size";
         } else if (currentRoute == "/size") {
@@ -36,8 +47,18 @@ const NavigationHelper = {
         } else if (currentRoute == "/capsule") {
             return "/milkBalance";
         } else if (currentRoute == "/milkBalance") {
-            return "/checkout";
-        } else if (currentRoute == "/milkBalance") {
+            return "/options";
+        }
+        else if (currentRoute == "/options") {
+            //if (store.state.option == "Pay Later") return "/payLater"
+            if (localStorage.getItem("paymentOption")=="Pay Later") return "/payLater"
+            else return "/payment"
+        }
+
+
+
+
+        else if (currentRoute == "/milkBalance") {
             return "/milkType";
         } else if (currentRoute == "/milkType") {
             return "/checkout";
