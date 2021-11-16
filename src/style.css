@@ -117,7 +117,6 @@ h1, h2, h3 {
   height: 100%;
   justify-items: stretch;
   align-items: center;
-  background: url("./img/BackgroundCoffee.png");
   background-size: cover
 }
 
@@ -136,7 +135,6 @@ h1, h2, h3 {
   justify-items: stretch;
   text-align: center;
   align-items: center;
-  background: url("./img/BackgroundCoffee.png");
   background-size: cover
 }
 
@@ -168,7 +166,6 @@ h1, h2, h3 {
   justify-items: stretch;
   text-align: center;
   align-items: center;
-  background: url("./img/BackgroundCoffee.png");
   background-size: cover
 }
 
@@ -189,7 +186,6 @@ h1, h2, h3 {
   justify-items: stretch;
   text-align: center;
   align-items: center;
-  background: url("./img/BackgroundCoffee.png");
   background-size: cover
 }
 
@@ -202,17 +198,9 @@ h1, h2, h3 {
 }
 
 .contain main .review {
-  /* padding: 40px 10px; */
-  /* background: url("./img/BackgroundCoffee.png"); */
   background-size: cover;
   background-repeat: repeat-y;
   height: 100%
-
-  /* background: url("./img/BackgroundCoffee.png") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; */
 }
 .contain main .sandbox {
   display: grid;
@@ -222,7 +210,6 @@ h1, h2, h3 {
   height: 100%;
   justify-items: stretch;
   align-items: center;
-  background: url("./img/BackgroundCoffee.png");
   background-size: cover
 }
 .contain main .sandbox .left{
@@ -236,7 +223,7 @@ h1, h2, h3 {
   background-size: cover
 }
 
-.contain main .order {
+/* .contain main .order {
   padding: 40px 10px;
   color: #000;
   background: url("./img/adyen_coffee_gif.gif");
@@ -249,7 +236,7 @@ h1, h2, h3 {
   grid-template-rows: 100px 200px 100px;
   width: 100%;
   height: 100%;
-}
+} */
 .contain main .order h1, .contain main .order h2 {
   margin: 15px 0;
 }

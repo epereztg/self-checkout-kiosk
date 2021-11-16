@@ -1,7 +1,7 @@
 const NavigationHelper = {
     store: null,
-    atStart: currentRoute => currentRoute == "/kioskHome",
-    atEnd: currentRoute => currentRoute == "/orderCompleted",
+    atStart: currentRoute => currentRoute == "/",
+    atEnd: currentRoute => currentRoute == "/checkout",
     milk: currentRoute => this.store.milkBalance,
     prev(currentRoute) {
         if (currentRoute == "/kioskHome") {
@@ -12,7 +12,7 @@ const NavigationHelper = {
         } else if (currentRoute == "/capsule") {
             return "/size";
         } else if (currentRoute == "/milkBalance") {
-            return "/capsule";
+            return "/model";
         } else if (currentRoute == "/milkType") {
             return "/milkBalance";
         } else if (currentRoute == "/milkBalance") {
@@ -32,7 +32,6 @@ const NavigationHelper = {
     },
     next(currentRoute) {
       if (currentRoute == "/") {
-          //if (store.state.option == "Pay Later") return "/payLater"
           if (localStorage.getItem("channelOption")=="Self Checkout Kiosk") return "/kioskHome"
           else if (localStorage.getItem("channelOption")=="Ecommerce") return "/checkout"
           else return "/payment"
@@ -43,27 +42,21 @@ const NavigationHelper = {
         else if (currentRoute == "/kioskHome") {
             return "/size";
         } else if (currentRoute == "/size") {
-            return "/capsule";
-        } else if (currentRoute == "/capsule") {
-            return "/milkBalance";
-        } else if (currentRoute == "/milkBalance") {
+            return "/model";
+        } else if (currentRoute == "/model") {
             return "/options";
         }
         else if (currentRoute == "/options") {
             //if (store.state.option == "Pay Later") return "/payLater"
-            if (localStorage.getItem("paymentOption")=="Pay Later") return "/payLater"
+            if (localStorage.getItem("paymentOption")=="paylater") return "/checkout"
             else return "/payment"
         }
-
-
-
-
         else if (currentRoute == "/milkBalance") {
             return "/milkType";
         } else if (currentRoute == "/milkType") {
             return "/checkout";
         } else if (currentRoute == "/checkout") {
-            return "/payment";
+            return "/";
         } else if (currentRoute == "/payment") {
             return "/orderCompleted";
         } else {

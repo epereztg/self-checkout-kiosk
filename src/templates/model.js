@@ -1,4 +1,4 @@
-var capsule = `
+var model = `
 <base-layout @onPrev="prev" @onNext="next">
 <div class="milktype">
   <div class="b" v-for="(choice, key) in choices" @click="addToCart(choice.text);next()" v-bind:class="[choice.text]">

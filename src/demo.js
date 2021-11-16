@@ -46,7 +46,10 @@ function showFinalResultPOS(response) {//response.SaleToPOIResponse
   var resultCode = null;
   var pspRef = null;
 
-  if (response.SaleToPOIResponse.PaymentResponse.Response.Result == 'Success') {
+  if (response.SaleToPOIRequest !=null){
+    resultCode = 'Failure';
+  }
+  else  if (response.SaleToPOIResponse.PaymentResponse.Response.Result == 'Success') {
     resultCode = 'Success';
   } else if (response.SaleToPOIResponse.PaymentResponse.Response.Result == 'Failure') {
     resultCode = 'Failure';

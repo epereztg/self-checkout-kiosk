@@ -4,20 +4,12 @@ var payment = `
 <table align="center">
 
   <tr>
-     <td>Coffee size</td>
+     <td>Size</td>
      <td>{{ $store.state.size }}</td>
   </tr>
   <tr>
-     <td>Capsule</td>
+     <td>Model</td>
      <td>{{ $store.state.capsule }}</td>
-  </tr>
-  <tr>
-     <td>Milk Type</td>
-     <td>{{ $store.state.milkType }}</td>
-  </tr>
-  <tr>
-     <td>Milk Balance</td>
-     <td>{{ $store.state.milkBalance }}</td>
   </tr>
 </table>
 -->

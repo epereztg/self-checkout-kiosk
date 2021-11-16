@@ -4,23 +4,14 @@ function loadCoffeeOrder() {
     if (store.state.size != null) {
         localStorage.setItem('size', store.state.size)
     } else {
-        store.state.size = localStorage.getItem('size')
+        //store.state.size = localStorage.getItem('size')
     }
     if (store.state.capsule != null) {
         localStorage.setItem('capsule', store.state.capsule)
     } else {
-        store.state.capsule = localStorage.getItem('capsule')
+        //store.state.capsule = localStorage.getItem('capsule')
     }
-    if (store.state.milkType != null) {
-        localStorage.setItem('milkType', store.state.milkType)
-    } else {
-        store.state.milkType = localStorage.getItem('milkType')
-    }
-    if (store.state.milkBalance != null) {
-        localStorage.setItem('milkBalance', store.state.milkBalance)
-    } else {
-        store.state.milkBalance = localStorage.getItem('milkBalance')
-    }
+
     if (store.state.shopperReference != null) {
         localStorage.setItem('shopperReference', store.state.shopperReference)
     } else {
@@ -29,11 +20,6 @@ function loadCoffeeOrder() {
 }
 
 function loadComponentsScripts() {
-    if (document.getElementById('interac-container') != null) {
-        let interacScript = document.createElement('script')
-        interacScript.setAttribute('src', './components/interac.js')
-        document.head.appendChild(interacScript)
-    }
     if (document.getElementById('dropin-container') != null) {
         var dropinScript = document.createElement('script');
         dropinScript.setAttribute('src', './components/dropin.js')
@@ -41,31 +27,6 @@ function loadComponentsScripts() {
         var googleScript = document.createElement('script');
         dropinScript.setAttribute('src', 'https://pay.google.com/gp/p/js/pay.js')
         document.head.appendChild(googleScript)
-    }
-    if (document.getElementById('oney-container') != null) {
-        var dropinScript = document.createElement('script');
-        dropinScript.setAttribute('src', './components/oney.js')
-        document.head.appendChild(dropinScript)
-    }
-    if (document.getElementById('mbway-container') != null) {
-        var mbwayScript = document.createElement('script');
-        mbwayScript.setAttribute('src', './components/mbway.js')
-        document.head.appendChild(mbwayScript)
-    }
-    if (document.getElementById('card-container') != null) {
-        var mbwayScript = document.createElement('script');
-        mbwayScript.setAttribute('src', './components/card.js')
-        document.head.appendChild(mbwayScript)
-    }
-    if (document.getElementById('googlepay-container') != null) {
-        var mbwayScript = document.createElement('script');
-        mbwayScript.setAttribute('src', './components/googlepay.js')
-        document.head.appendChild(mbwayScript)
-    }
-    if (document.getElementById('wechatpayqr-container') != null) {
-        var mbwayScript = document.createElement('script');
-        mbwayScript.setAttribute('src', './components/wechatpay.js')
-        document.head.appendChild(mbwayScript)
     }
 }
 // function getRedirectResultFromUrl(url) {
@@ -157,6 +118,22 @@ function changeLocation() {
 
     localStorage.setItem('defaultCountry', sel.value)
     localStorage.setItem('countryIndex', sel.selectedIndex)
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 function parseSignature(signature) {

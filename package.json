@@ -1,7 +1,7 @@
 {
     "name": "dropin-selk-kiosk",
     "version": "1.0.0",
-    "description": "Adyen Components Sample Code",
+    "description": "Adyen Dropin Sample Code",
     "main": "src/index.js",
     "scripts": {
         "start": "npm run devserver",

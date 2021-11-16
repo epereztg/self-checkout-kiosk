@@ -9,20 +9,12 @@ var checkout = `
            <td>{{ $store.state.shopperReference }}</td>
         </tr>
         <tr>
-           <td>Coffee size</td>
+           <td>Size</td>
            <td>{{ $store.state.size }}</td>
         </tr>
         <tr>
-           <td>Capsule</td>
+           <td>Model</td>
            <td>{{ $store.state.capsule }}</td>
-        </tr>
-        <!--<tr>
-           <td>Milk Type</td>
-           <td>{{ $store.state.milkType }}</td>
-           </tr>-->
-        <tr>
-           <td>Milk Balance</td>
-           <td>{{ $store.state.milkBalance }}</td>
         </tr>
         <tr>
            <td>Total Price</td>
@@ -30,63 +22,6 @@ var checkout = `
         </tr>
      </table>
   </div>
-
-
-    <!--<div id="customCard-container">
-     <label>
-         <span>Card number:</span>
-         <span data-cse="encryptedCardNumber"></span>
-     </label>
-     <label>
-         <span>Expiry date:</span>
-         <span data-cse="encryptedExpiryDate"></span>
-     </label>
-     <label>
-         <span>CVV/CVC:</span>
-         <span data-cse="encryptedSecurityCod"></span>
-     </label>
-     </div>-->
-
-
-
-     <!--CARD component-->
-
-    <!-- <div  id="payment-method">
-        <div id="card-container" class="payment-method__container"></div>
-        </br>
-        <div id="card-number-stored" class="payment-method__container">
-          <img class="adyen-checkout__payment-method__image adyen-checkout__image adyen-checkout__image--loaded" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/logos/visa.svg" alt="Insert your card" aria-label="Insert your card"></span>
-          <span class="adyen-checkout__payment-method__name adyen-checkout__payment-method__name--selected" aria-hidden="true">•••• 1111</span>
-        </div>
-        <div id="stored-card" class="payment-method__container"></div>
-     </div>-->
-
-     <!--<div  id="payment-method">
-        <div id="card-container" class="payment-method__container"></div>
-        </br>
-        <p>
-           Stored card:
-           <div id="storedCardInfo"></div>
-        </p>
-        <div id="stored-card" class="payment-method__container"></div>
-     </div>-->
-
-
-    <!--<div id="payment-method" class="payment-method__container">
-        <div id="oney-container"></div>
-    </div>
-    <div id="payment-method" class="payment-method__container">
-          <div  id="mbway-container">  </div>
-    </div>-->
-
-
-    <!--Example of a redirect payment method without existent component-->
-    <!--
-    <div  id="interac-container">
-    <div id="googlepay-container"></div>
-    <div id="wechatpayqr-container"></div>
-    <div id="oney-container"></div>
-    <div  id="mbway-container"></div><a href="https://comprafacil2.hipay.pt/backoffice-test/MBWay/Payments.aspx?statusEnd=&statusStart=&status=&vat=&email=elena.pereztoril%40adyen.com&dateEnd=&dateStart=&phone=&operationId=" target="_blank">Go to HiPay</a>-->
 
     <!--DROPIN component-->
     <div  id="payment-method" class="payment-method__container ">
@@ -125,15 +60,15 @@ var checkout = `
 
   <p>
      CountryCode:
-     <select id="countries" name="countries" @change="changeLocation"></select>
+     <select id="countries" name="countries" @change="changeLocation();location.reload();"></select>
   </p>
   <p>
      ShopperLocale:
-     <select id="locales" name="locales" @change="changeShopperLocale"></select>
+     <select id="locales" name="locales" @change="changeShopperLocale();location.reload();"></select>
   </p>
   <p>
      DefaultCurrency:
-     <select id="currencies" name="currencies" @change="changeCurrency"></select>
+     <select id="currencies" name="currencies" @change="changeCurrency();location.reload();"></select>
   </p>
 
   </div>
