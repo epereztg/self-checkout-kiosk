@@ -18,7 +18,7 @@ var payment = `
 <div class="review center">
   <big style="font-size:300px;">{{defaultAmount/100}} €</big>
   <h2>Please pay on the terminal with your card!</h2>
-  <h2>TerminalID:{{getSelectedTerminal()}} </h2>
+  <h2>TerminalID: {{getSelectedTerminal()}} </h2>
 
   <h1>↘↘↘↘↘↘↘</h1>
 </div>

@@ -8,7 +8,7 @@ const makePayment = require('./api/payments');
 const initiatePaymentDetails = require('./api/paymentsDetails');
 const initiatePaymentLinks = require('./api/paymentLinks');
 const initiateTerminalAPI = require('./api/terminalAPI');
-
+const connectedTerminals = require('./api/connectedTerminals');
 
 module.exports = (() => {
     app.use(express.json());
