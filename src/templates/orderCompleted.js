@@ -1,7 +1,7 @@
 var orderCompleted = `
 <base-layout @onPrev="prev" @onNext="next">
-<div class="center">
-  <h2>Thanks for your order!</h2>
+<div class="center text-over-video">
+   <p>Thanks for your order!</p>
 </div>
 
 <!--DROPIN component-->

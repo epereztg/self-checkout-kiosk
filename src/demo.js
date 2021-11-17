@@ -47,7 +47,7 @@ function showFinalResultPOS(response) {//response.SaleToPOIResponse
   var pspRef = null;
 
   if (response.SaleToPOIRequest !=null){
-    resultCode = 'Failure';
+    resultCode = 'Reject';
   }
   else  if (response.SaleToPOIResponse.PaymentResponse.Response.Result == 'Success') {
     resultCode = 'Success';

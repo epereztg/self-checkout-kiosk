@@ -1,5 +1,4 @@
 //import * from "templates"
-
 function loadCoffeeOrder() {
     if (store.state.size != null) {
         localStorage.setItem('size', store.state.size)
@@ -29,6 +28,8 @@ function loadComponentsScripts() {
         document.head.appendChild(googleScript)
     }
 }
+
+// DEPRECATED V66
 // function getRedirectResultFromUrl(url) {
 //     var queryString = url ? url.split('?')[1] : window.location.search.slice(1); //get all from ?
 //     if (typeof queryString != 'undefined') {
@@ -56,13 +57,9 @@ function getResultCodeFromUrl(url) {
     } else return null;
 }
 
-function generatePayByLinkUrl(data) {
-
-  return paymentLinks(data);
-}
-function generatePayByLinkUrlQR(data) {
-  return paymentLinksQR(data);
-}
+// function generatePayByLinkUrl(data) {
+//   return paymentLinks(data);
+// }
 
 function fillCountries() {
   var select = document.getElementById("countries");
@@ -136,6 +133,7 @@ function getCookie(cname) {
     return "";
 }
 
+// Not being used. Future project with sign on terminal subscription
 function parseSignature(signature) {
   const convert = (x) => x.toUpperCase() === 'FFFF' ? -1 : parseInt(x, 16);
   var dataPointsHEX = signature.signature.data;

@@ -4,8 +4,9 @@ const defaultLocale = localStorage.getItem('defaultLocale')!=null ? localStorage
 const defaultAmount = Math.floor(Math.random() * 100000)
 const defaultShopperReference = localStorage.getItem('shopperReference')!=null ? localStorage.getItem('shopperReference'):'mail@adyen.com'
 const defaultRequest= localStorage.getItem('requestToPayments')!=null ? localStorage.getItem('requestToPayments'):null
-
 const defaultShopperStatement= "test_c1"
+
+const defaultTerminal = 'S1EL-000150203407529'
 
 const countries = ['ES','BE','NO','MX','NL','PT','AT','SE','DE','FR','CN','KR', 'AU', 'CH','GB']
 const countryNames = ['Spain','Belgium','Norway','Mexico','Netherlands','Portugal','Austria','Sweden','Germany','France','China', 'Korea','Australia', 'Switzerland', 'UK']
@@ -115,7 +116,7 @@ const paymentsDefaultConfigPOS = {
             SaleID: 'BTQAMS-10901',
             ServiceID: Math.floor(Math.random() * 100000).toString(),
             //'POIID'=>'V400m-346715581'
-            POIID:'S1EL-000150203407529'
+            POIID: defaultTerminal
         },
         PaymentRequest: {
             SaleData: {
@@ -282,8 +283,8 @@ const getPaymentMethods = () =>
    // },
 
 const makePOSPayment = (paymentMethod, config = {}) => {
-//const makePOSPayment = (paymentMethod, config = {}) => {
-       //const paymentsConfig = { ...config };
+      paymentsDefaultConfigPOS.POIID = localStorage.getItem("selectTerminal");
+      paymentsDefaultConfigPOS.ServiceID = Math.floor(Math.random() * 100000).toString();
        const paymentsConfig = {
            ...paymentsDefaultConfigPOS,
            ...config
@@ -299,18 +300,9 @@ const makePOSPayment = (paymentMethod, config = {}) => {
            })
            .catch(error => {
                console.log('error on makePOSPayment' + error)
-               console.log("resultTAPI: " + getCookie('requesTAPI'))
-               console.log("terminalAPI: " + getCookie('terminalAPI'))
-
                throw Error(error);
            });
-   };
-
-   // "threeDS2RequestData" : {
-   //    "deviceChannel" : "browser",
-   //    "notificationURL" : "http://localhost:3000/#/checkout",
-   //    "threeDSCompInd" : "Y"
-   // },
+};
 
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
@@ -369,7 +361,6 @@ const handlePostMessage = (e) => {
 
 //to be used in redirect type. i.e Alipay, Interac
 const paymentDetails = (paymentData, detailsKey, config = {}) => {
-    //paymentData.details.threeDSAuthenticationOnly = true
     var paymentRequest = paymentData;
 
     if (getActionType() == "redirect") {
@@ -383,7 +374,6 @@ const paymentDetails = (paymentData, detailsKey, config = {}) => {
    else {
     paymentRequest =
         paymentData
-
   }
 
     if (document.getElementById('requestToPaymentDetails') !== null){
@@ -422,7 +412,7 @@ httpPost('fallbackthreedone')
     })
 .catch(console.error);
 
-const paymentLinks = (paymentData) => {
+const generatePayByLinkUrl = (paymentData) => {
     var paymentRequest = paymentData;
 
     paymentRequest.amount.value = parseInt(getAmount());
@@ -450,23 +440,55 @@ const paymentLinks = (paymentData) => {
         });
 };
 
-const paymentLinksQR = (paymentData) => {
-    var paymentRequest = paymentData;
-
-    return httpPostnoJson('paymentLinksQR', paymentRequest)
+const getTerminals = (paymentData) => {
+    var request =
+    {
+      "companyAccount": "AdyenTechSupport",
+      "merchantAccount": "ElenaPerez"
+    }
+    return httpPostnoJson('getTerminals', request)
         .then(response => {
-            if (response.error) throw 'Payment initiation failed';
-
-            //return JSON.parse(response);
+            if (response.error) throw 'getTerminals failed';
             return response;
         })
         .catch(error => {
-            console.log('error on paymentLinksQR' + error)
+            console.log('error on getTerminals' + error)
             throw Error(error);
         });
 };
 
+const getTerminalDetails = (terminalID) => {
+    var request =
+    {
+      "terminal": terminalID
+    }
+    return httpPostnoJson('getTerminalDetails', request)
+        .then(response => {
+            if (response.error) throw 'getTerminalDetails failed';
+            return response;
+        })
+        .catch(error => {
+            console.log('error on getTerminalDetails' + error)
+            throw Error(error);
+        });
+};
 
+const connectedTerminals = (terminalID) => {
+    var request =
+    {
+         "merchantAccount": "ElenaPerez",
+         "store": "ElenaPerezStore"
+     }
+    return httpPostnoJson('connectedTerminals', request)
+        .then(response => {
+            if (response.error) throw 'connectedTerminals failed';
+            return response;
+        })
+        .catch(error => {
+            console.log('error on connectedTerminals' + error)
+            throw Error(error);
+        });
+};
 // Fetches an originKey from the local server
 const getOriginKey = () =>
 httpPost('originKeys')

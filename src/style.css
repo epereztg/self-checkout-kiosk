@@ -35,7 +35,7 @@ h1, h2, h3 {
   justify-content: center;
   flex-direction: row;
 }
-.center, .contain main .size .b, .contain main .milktype .box .b {
+.center, .contain main .size .b, .contain main .model .box .b {
   text-align: center;
 }
 .contain {
@@ -126,7 +126,7 @@ h1, h2, h3 {
  font-size: 6em;
  line-height: 1;
 }
-.contain main .milktype{
+.contain main .model{
   display: grid;
   grid-template-columns: 1fr ;
   grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -138,22 +138,22 @@ h1, h2, h3 {
   background-size: cover
 }
 
- .contain main .milktype .b .icon {
+ .contain main .model .b .icon {
   color: #0ABF53;
   /* padding-right: 30px; */
   font-size: 6em;
   line-height: 1;
 }
-.contain main .milktype .b.Cow {
+.contain main .model .b.Cow {
   background: #094EC6;
 }
-.contain main .milktype .b.Soy {
+.contain main .model .b.Soy {
   background: #063A95;
 }
-.contain main .milktype .b.Rice {
+.contain main .model .b.Rice {
   background: #03245C;
 }
-.contain main .milktype .b.Coconut {
+.contain main .model .b.Coconut {
   background: #00112C;
 }
 
@@ -456,9 +456,10 @@ select {
 }
 /*Pay by Link links*/
 .fake-link {
-    color: blue;
+    color: white;
     text-decoration: underline;
     cursor: pointer;
+    font-size: 30px;
 }
 .inactiveLink {
    pointer-events: none;

@@ -12,7 +12,7 @@ This is a simple demo of a self service coffee kiosk using adyen dropin checkout
 
 Drop-in is our all-in-one UI solution that you can add on your payments form so you can start accepting transactions for key payment methods using a single front-end implementation.
 
-The [Drop-in](https://docs.adyen.com/checkout/drop-in-web/) handles the presentation of available payment methods and the subsequent entry of a customer's payment details. It is initialized with the response of [`/paymentMethods`](https://docs.adyen.com/api-explorer/#/CheckoutService/v66/post/paymentMethods), and provides everything you need to make an API call to [`/payments`](https://docs.adyen.com/api-explorer/#/CheckoutService/v66/post/payments) and [`/payments/details`](https://docs.adyen.com/api-explorer/#/CheckoutService/v66/post/payments/details)).
+The [Drop-in](https://docs.adyen.com/checkout/drop-in-web/) handles the presentation of available payment methods and the subsequent entry of a customer's payment details. It is initialized with the response of [`/paymentMethods`](https://docs.adyen.com/api-explorer/#/CheckoutService/v67/post/paymentMethods), and provides everything you need to make an API call to [`/payments`](https://docs.adyen.com/api-explorer/#/CheckoutService/v66/post/payments) and [`/payments/details`](https://docs.adyen.com/api-explorer/#/CheckoutService/v66/post/payments/details)).
 
 > [Drop-in Documentation](https://docs.adyen.com/checkout/drop-in-web/)
 

@@ -30,8 +30,10 @@ var checkout = `
 
 
   <div class="center">
-    <hr style="height:5px">
+    <hr style="height:1px">
     <a id="paybylink" class="inactiveLink" href="" target="_blank" >PBL url will be shown here...please wait</a>
+    </br>
+    </br>
     </br>
     <a style="height:5px">Scan & Pay:</a>
     <p id="qrcode" ></p>
@@ -49,7 +51,7 @@ var checkout = `
 
 
   <div id="localStorage"></div>
-  <hr style="height:10px">
+  <hr style="height:1px">
 
 
   <div id="response"></div>

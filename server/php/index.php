@@ -9,9 +9,12 @@ require('api/payments.php');
 require('api/originKeys.php');
 require('api/paymentsDetails.php');
 require('api/paymentLinks.php');
-require('api/paymentLinksQR.php');
 require('api/fallbackthreedone.php');
 require('api/terminalAPI.php');
+require('api/getTerminals.php');
+require('api/getTerminalDetails.php');
+require('api/connectedTerminals.php');
+
 
 // Basic routing
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
@@ -46,10 +49,6 @@ switch($request_uri[0]) {
         echo initiatePaymentLinks();
         break;
 
-    case '/paymentLinksQR':
-        header('Content-Type: application/json');
-        echo initiatePaymentLinksQR($request_uri[0]);
-        break;
     case '/fallbackthreedone':
         header('Content-Type: application/json');
         $myresult = fallbackthreedone($request_uri[0]);
@@ -58,6 +57,21 @@ switch($request_uri[0]) {
     case '/terminalAPI':
         header('Content-Type: application/json');
         echo initiateTerminalAPI();
+        break;
+
+    case '/getTerminals':
+        header('Content-Type: application/json');
+        echo getTerminals();
+        break;
+
+    case '/getTerminalDetails':
+        header('Content-Type: application/json');
+        echo getTerminalDetails();
+        break;
+
+    case '/connectedTerminals':
+        header('Content-Type: application/json');
+        echo connectedTerminals();
         break;
 
     default:

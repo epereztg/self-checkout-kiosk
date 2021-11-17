@@ -3,7 +3,7 @@ var pageNav = `
   <div class="control">
     <button
        v-show='!$NavigationHelper.atStart(this.$route.path) && this.$route.path!= "/orderCompleted" '
-       @click="prev" class="button">{{ $NavigationHelper.prev(this.$route.path)== "/milkType" || this.$route.path== "/checkout"
+       @click="prev" class="button">{{ $NavigationHelper.prev(this.$route.path)== "/model" || this.$route.path== "/checkout"
        ? 'Cancel Order': 'Prev'}}
     </button>
 

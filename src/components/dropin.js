@@ -88,7 +88,6 @@ getPaymentMethods().then(paymentMethodsResponse => {
         paymentMethodsConfiguration: paymentMethodsConfiguration,
         onSubmit: (state, component) => {
             if (state.isValid) {
-                console.log("is valid");
                 makePayment(state.data)
                     .then(response => {
                         if (response.action) {
@@ -101,11 +100,11 @@ getPaymentMethods().then(paymentMethodsResponse => {
                             // Drop-in handles the action object from the /payments response.
                             else dropin.handleAction(response.action);
                         } else //if (response.resultCode === "Authorised") {
-                            //dropin.setStatus('success');
-                            {
-                              localStorage.setItem('paymentResult', JSON.stringify(response));
-                              window.location = window.origin + "/#/orderCompleted"
-                            
+                        //dropin.setStatus('success');
+                        {
+                            localStorage.setItem('paymentResult', JSON.stringify(response));
+                            window.location = window.origin + "/#/orderCompleted"
+
                         }
                         // } else {
                         //     dropin.setStatus('error');
@@ -124,24 +123,12 @@ getPaymentMethods().then(paymentMethodsResponse => {
                     if (JSON.parse(result).resultCode == 'ChallengeShopper' || JSON.parse(result).resultCode == 'IdentifyShopper') {
                         dropin.handleAction(JSON.parse(result).action);
                     } else //if (JSON.parse(result).resultCode == 'Authorised') {
-
                         //dropin.setStatus('success');
-
                         window.location = window.origin + "/#/orderCompleted"
-                    //localStorage.clear()
-                    // } else if (JSON.parse(result).resultCode == 'Cancelled') {
-                    //     showFinalResultDropin(result);
-                    // } else {
-                    //     //showFinalResultDropin(result);
-                    //     dropin.setStatus('error'); //paypal prblem here, result is string.
-                    //     localStorage.clear()
-                    //     //showFinalResult(result);
-                    // }
                 })
                 .catch(error => {
                     localStorage.clear()
                     console.log('error on submitDetails' + error)
-                    //localStorage.clear()
                     throw Error(error);
                 });
         },
@@ -175,14 +162,8 @@ getPaymentMethods().then(paymentMethodsResponse => {
         clientKey: "test_E3XT7DO34FETRCDF4XFV5XX2GMRW3TQZ",
         paymentMethodsResponse: paymentMethodsResponse,
         removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
-
-        //paymentMethodsResponse =
-        //removePaymentMethods:["facilypay_3x", "facilypay_4x", "klarna_account"],
         enableStoreDetails: true
     });
-
-    //if (window.location.hash.includes("payLater");
-    //paymentMethodsConfig.allowedPaymentMethods =  ["facilypay_3x", "facilypay_4x", "klarna_account"]
 
     const storedPaymentMethod = paymentMethodsResponse.storedPaymentMethods != null ?
         paymentMethodsResponse.storedPaymentMethods[0] :

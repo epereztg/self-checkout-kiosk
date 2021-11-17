@@ -2,13 +2,10 @@
 /**
  * Adyen Checkout Example (https://www.adyen.com/)
  * Copyright (c) 2019 Adyen BV (https://www.adyen.com/)
- * /payments Documentation: https://docs.adyen.com/api-explorer/#/PaymentSetupAndVerificationService/v40/payments
+ * /paymentMethods Documentation: https://docs.adyen.com/api-explorer/#/PaymentSetupAndVerificationService/v40/paymentMethods
  */
 
-/**
- * Make a payment
- */
-function initiatePaymentLinksQR($link) {
+function getTerminalDetails() {
     if (file_get_contents('php://input') != '') {
         $request = json_decode(file_get_contents('php://input'), true);
     } else {
@@ -17,26 +14,12 @@ function initiatePaymentLinksQR($link) {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
-    echo $link;
-    //$url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+$link;
-    $url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$link}";
+    //$apikey = getenv('CHECKOUT_APIKEY');
+    $url = "https://postfmapi-test.adyen.com/postfmapi/terminal/v1/getTerminalDetails";
+    
+    $json_data = json_encode($request);
 
-    $data = [
-        'amount' => [
-            'currency' => 'EUR',
-            'value' => 1000
-        ],
-        'description'=> 'Need my coffee',
-        'reference' => 'Coffee Kiosk Order Reference',
-        'reusable' =>  true,
-        'merchantAccount' => $merchantAccount//,
-        //'expiresAt'=> '2020-10-2T12:25:28Z' ,
-    ];
-
-    // Convert data to JSON
-    //$json_data = json_encode(array_merge($data, $request));
-
-    //  Initiate curl
+    // Initiate curl
     $curlAPICall = curl_init();
 
     // Set to POST
@@ -46,7 +29,7 @@ function initiatePaymentLinksQR($link) {
     curl_setopt($curlAPICall, CURLOPT_RETURNTRANSFER, true);
 
     // Add JSON message
-    //curl_setopt($curlAPICall, CURLOPT_POSTFIELDS, $json_data);
+    curl_setopt($curlAPICall, CURLOPT_POSTFIELDS, $json_data);
 
     // Set the url
     curl_setopt($curlAPICall, CURLOPT_URL, $url);
@@ -56,10 +39,9 @@ function initiatePaymentLinksQR($link) {
         array(
             "X-Api-Key: " . $apikey,
             "Content-Type: application/json",
-            //"Content-Length: " . strlen($json_data)
+            "Content-Length: " . strlen($json_data)
         )
     );
-
     // Execute
     $result = curl_exec($curlAPICall);
 
@@ -72,5 +54,5 @@ function initiatePaymentLinksQR($link) {
     curl_close($curlAPICall);
 
     // This file returns a JSON object
-    return $result;
+    return json_encode($result);
 }
