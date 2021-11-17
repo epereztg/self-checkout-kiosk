@@ -28,6 +28,7 @@ module.exports = (() => {
     app.all('/payments/details', (req, res) => initiatePaymentDetails(res, req.body));
     app.all('/paymentlinks', (req, res) => initiatePaymentLinks(res, req.body));
     app.all('/terminalAPI', (req, res) => initiateTerminalAPI(res, req.body));
+    app.all('/connectedTerminals', (req, res) => connectedTerminals(res, req.body));
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`Listening on localhost:${port}`));
