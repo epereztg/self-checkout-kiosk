@@ -8,7 +8,7 @@ module.exports = (endpoint, request) => {
 
     return {
         body,
-        url: `${TERMINAL_URL}/`,
+        url: `${TERMINAL_URL}/${endpoint}`,
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
