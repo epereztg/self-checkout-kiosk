@@ -14,10 +14,19 @@ function connectedTerminals() {
 
     $apikey = getenv('CHECKOUT_APIKEY');
     $merchantAccount = getenv('MERCHANT_ACCOUNT');
+    $companyAccount = getenv('COMPANY_ACCOUNT');
+
+    $data = [
+        'companyAccount' => $companyAccount,
+        'merchantAccount' => $merchantAccount
+    ];
+
+    // Convert data to JSON
+    $json_data = json_encode(array_merge($data, $request));
 
     $url = "https://terminal-api-test.adyen.com/connectedTerminals";
 
-    $json_data = json_encode($request);
+    //$json_data = json_encode($request);
 
     // Initiate curl
     $curlAPICall = curl_init();

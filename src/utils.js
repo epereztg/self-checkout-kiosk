@@ -443,8 +443,7 @@ const generatePayByLinkUrl = (paymentData) => {
 const getTerminals = (paymentData) => {
     var request =
     {
-      "companyAccount": "AdyenTechSupport",
-      "merchantAccount": "ElenaPerez"
+      //"companyAccount": "AdyenTechSupport"
     }
     return httpPostnoJson('getTerminals', request)
         .then(response => {

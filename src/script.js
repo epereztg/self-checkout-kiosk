@@ -339,6 +339,8 @@ const SelectTerminal = {
     mounted() {
       connectedTerminals()
           .then(response => {
+            console.log("connectedTerminals "+response)
+            //response = JSON.parse(response)
             response = JSON.parse(JSON.parse(response))
             for(i=0; i<=response.uniqueTerminalIds.length-1; i++){
                 this.terminals.push(response.uniqueTerminalIds[i]) ;

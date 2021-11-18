@@ -1,8 +1,9 @@
-const { CHECKOUT_APIKEY, TERMINAL_URL, MERCHANT_ACCOUNT } = require('./config');
+const { CHECKOUT_APIKEY, TERMINAL_URL, MERCHANT_ACCOUNT,COMPANY_ACCOUNT } = require('./config');
 
 module.exports = (endpoint, request) => {
     const body = JSON.stringify({
         merchantAccount: MERCHANT_ACCOUNT,
+        //companyAccount: COMPANY_ACCOUNT,
         ...request
     });
 
