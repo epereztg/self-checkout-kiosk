@@ -339,12 +339,18 @@ const SelectTerminal = {
     mounted() {
       connectedTerminals()
           .then(response => {
-            console.log("connectedTerminals "+response)
-            //response = JSON.parse(response)
-            response = JSON.parse(JSON.parse(response))
-            for(i=0; i<=response.uniqueTerminalIds.length-1; i++){
-                this.terminals.push(response.uniqueTerminalIds[i]) ;
+            response = JSON.parse(response)
+            //to be fixed: why it behaves diff in localhost and heroku?
+            if  (typeof response === 'string' || response instanceof String){
+              response = JSON.parse(response)
             }
+            if (response.uniqueTerminalIds.length>0){
+              for(i=0; i<=response.uniqueTerminalIds.length-1; i++){
+                  this.terminals.push(response.uniqueTerminalIds[i]) ;
+              }
+            }
+            else
+              this.terminals.push("There are no terminals assigned to your Store.") ;
           })
     },
     methods: {
