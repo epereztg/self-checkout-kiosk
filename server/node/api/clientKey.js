@@ -3,5 +3,8 @@ const getPostParametersPOS = require('../utils/getPostParametersPOS');
 const handleCallback = require('../utils/handleCallback');
 
 module.exports = (res, request) => {
-  return process.env.CLIENT_KEY
+  const params = getPostParameters('paymentMethods', request);
+
+  post(params, (error, response, body) => handleCallback({ error, response, body }, res));
+
 };
