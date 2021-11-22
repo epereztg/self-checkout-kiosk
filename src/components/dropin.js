@@ -1,4 +1,3 @@
-var forDeletion = ['paysafecard', 'c_cash', 'paypal'];
 var paymentMethodsConfiguration = {
     locale: defaultLocale,
     shopperReference: 'paybylink_shopperreference',
@@ -80,6 +79,7 @@ var paymentMethodsConfiguration = {
 
 var dropinComponent =
     paymentMethodsConfig.shopperReference = defaultShopperReference
+    getClientKey().then(clientKey=> {
 getPaymentMethods().then(paymentMethodsResponse => {
 
     //var removePaymentMethods = ["facilypay_3x", "facilypay_4x", "klarna_account"];
@@ -159,7 +159,7 @@ getPaymentMethods().then(paymentMethodsResponse => {
         },
         environment: 'test',
         countryCode: getCountryCode(),
-        clientKey: "test_E3XT7DO34FETRCDF4XFV5XX2GMRW3TQZ",
+        clientKey: clientKey,
         paymentMethodsResponse: paymentMethodsResponse,
         removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
         enableStoreDetails: true
@@ -178,4 +178,5 @@ getPaymentMethods().then(paymentMethodsResponse => {
             }
         })
         .mount('#dropin-container')
+})
 });

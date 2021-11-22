@@ -411,3 +411,10 @@ const connectedTerminals = (terminalID) => {
             throw Error(error);
         });
 };
+
+const getClientKey = () =>
+    httpPostnoJson('clientKey')
+    .then(response => {
+        return response
+    })
+    .catch(console.error);

@@ -33,10 +33,7 @@ function showFinalResultPOS(response) {
     textToShow = '<div>❌Payment result'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
   }
 
-  //if (dropinContainer == null){
   var dropinContainer = document.getElementById("dropin-container");
-  //}
-
   dropinContainer.innerHTML = textToShow;
 }
 

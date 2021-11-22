@@ -14,6 +14,7 @@ require('api/terminalAPI.php');
 require('api/getTerminals.php');
 require('api/getTerminalDetails.php');
 require('api/connectedTerminals.php');
+require('api/clientKey.php');
 
 
 // Basic routing
@@ -72,6 +73,11 @@ switch($request_uri[0]) {
     case '/connectedTerminals':
         header('Content-Type: application/json');
         echo connectedTerminals();
+        break;
+
+    case '/clientKey':
+        header('Content-Type: application/json');
+        echo clientKey();
         break;
 
     default:
