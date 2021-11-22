@@ -9,6 +9,7 @@ const initiatePaymentDetails = require('./api/paymentsDetails');
 const initiatePaymentLinks = require('./api/paymentLinks');
 const initiateTerminalAPI = require('./api/terminalAPI');
 const connectedTerminals = require('./api/connectedTerminals');
+const clientKey = require('./api/clientKey');
 
 module.exports = (() => {
     app.use(express.json());
@@ -29,6 +30,8 @@ module.exports = (() => {
     app.all('/paymentlinks', (req, res) => initiatePaymentLinks(res, req.body));
     app.all('/terminalAPI', (req, res) => initiateTerminalAPI(res, req.body));
     app.all('/connectedTerminals', (req, res) => connectedTerminals(res, req.body));
+    app.all('/clientKey', (req, res) => clientKey(res, req.body));
+
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`Listening on localhost:${port}`));
