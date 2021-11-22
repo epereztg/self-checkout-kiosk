@@ -291,7 +291,6 @@ const Checkout = {
                     };
                     //var resultFake = JSON.stringify(obj);
                     //paymentDetails(uri_enc_paymentData,payload) interacContainer
-                    //result = "{"pspReference":"851594724227366G","resultCode":"Authorised","merchantReference":"KIOSK-DROPIN","paymentMethod":"alipay","shopperLocale":"en-EN"}"
                     paymentDetails(paymentData, detailsKey, payload) //alipay
                         .then(result => {
                             //result = resultFake;
@@ -299,7 +298,6 @@ const Checkout = {
 
                             // Your function to show the final result to the shopper.
                             //showFinalResultDropin(result);
-                            console.log('paymentDetails result: ' + result)
                             localStorage.setItem('paymentResult', result);
                             document.getElementById('localStorage').innerHTML = JSON.stringify(result);
 
@@ -350,7 +348,7 @@ const SelectTerminal = {
               }
             }
             else
-              this.terminals.push("There are no terminals assigned to your Store.") ;
+              this.terminals.push("There are no connnected terminals in your Store.") ;
           })
     },
     methods: {
@@ -392,16 +390,19 @@ const OrderCompleted = {
     mounted(){
       //POS
       var posResultCookie = localStorage.getItem('posResult');
-
+      var ecomResult = localStorage.getItem('paymentResult');
       if (posResultCookie!=null && posResultCookie!=""){
+        console.log("posResultCookie: ",posResultCookie)
         localStorage.setItem('posResult', "");
           showFinalResultPOS(JSON.parse(posResultCookie));
           window.location = window.origin + "/#/orderCompleted"
       }
-      else {
-        var paymentResult = localStorage.getItem('paymentResult');
-        showFinalResultDropin(paymentResult);
+      else if (ecomResult!=null && ecomResult!=""){
+        //console.log("paymentResult: ",ecomResult)
+        localStorage.setItem('paymentResult', "");
+        showFinalResultDropin(ecomResult);
       }
+      else return null;
     }
 };
 

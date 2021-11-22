@@ -299,9 +299,6 @@ const makePayment = (paymentMethod, config = {}) => {
     //if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
     //  paymentRequest.shopperInteraction = 'ContAuth';
 
-    var obj = paymentRequest
-    console.log('paymentRequest: ', obj)
-
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
@@ -359,14 +356,10 @@ const generatePayByLinkUrl = (paymentData) => {
     paymentRequest.returnUrl = defaultUrl();
     paymentRequest.shopperReference = defaultShopperReference;
 
-    delete paymentRequest['origin'];
-    delete paymentRequest['channel'];
-    delete paymentRequest['dateOfBirth'];
-    delete paymentRequest['shopperIP'];
-    delete paymentRequest['threeDS2RequestData'];
-    delete paymentRequest['shopperStatement'];
+    //Remove properties in json
+    let { channel, origin, dateOfBirth, shopperIP, threeDS2RequestData,shopperStatement, ...paymentRequestPBL } = paymentRequest;
 
-    return httpPostnoJson('paymentLinks', paymentRequest)
+    return httpPostnoJson('paymentLinks', paymentRequestPBL)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
 

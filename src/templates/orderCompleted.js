@@ -9,5 +9,8 @@ var orderCompleted = `
     <div id="dropin-container" class="payment-method__container"></div>
 </div>
 
+<p class="center" id="payment-result"></p>
+<p class="center" id="payment-response"></p>
+
 </base-layout>
 `

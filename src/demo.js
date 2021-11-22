@@ -1,48 +1,8 @@
-const stateContainer = document.querySelector('.current-state');
-const requestContainer = document.querySelector('.request-container');
-const responseContainer = document.querySelector('.response-container');
-const paypalContainer = document.getElementById("paypal-container");
-var dropinContainer= document.getElementById("dropin-container");
-const interacContainer= document.getElementById("interac-container");
+var warningHTML = "<div class=\"adyen-checkout__status adyen-checkout__status--warning\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https://i7.uihere.com/icons/199/579/754/alarm-processing-205473b2b36b8b4806293cd70da06f49.png\"\r\n  alt=\"Payment is PENDING, you will receive and update soon\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
+var authorisedHTML = "<div class=\"adyen-checkout__status adyen-checkout__status--success\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Successful\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Successful<\/span>\r\n<\/div>"
+var errorHTML =  "<div class=\"adyen-checkout__status adyen-checkout__status--error\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/error.svg\"\r\n  alt=\"Payment Cancelled by shopper\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
 
-function showFinalComponent(response) {
-
-  var resultCode = JSON.parse(response).resultCode;
-  var pspRef = JSON.parse(response).pspReference;
-  const interacContainer= document.getElementById("interac-container");
-  //interacContainer.innerHTML = '<div>✅response'+response+'<br> Adyen PSP reference: '+pspRef+'</div>';
-
-  if (resultCode == "Authorised"){
-    interacContainer.innerHTML = '<div>✅Payment result:'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
-  }
-  else if (resultCode == "Received"){
-    interacContainer.innerHTML = '<div>🔵Payment result:'+resultCode+'<br> Adyen PSP reference (Offer): '+pspRef+'</div>';
-  }
-  else if (resultCode == "Cancelled"){
-    interacContainer.innerHTML = '<div>🔵Payment result:'+resultCode+'<br> Adyen PSP reference (Offer): '+pspRef+'</div>';
-  }
-  else {
-    interacContainer.innerHTML = '<div>❌Payment result'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
-  }
-}
-// Demo - Update server response container
-function showFinalResult(response) {
-  var resultCode = JSON.parse(response).resultCode;
-  var pspRef = JSON.parse(response).pspReference;
-
-  if (resultCode == "Authorised"){
-    paypalContainer.innerHTML = '<div>✅Paypal result:'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
-  }
-  else if (resultCode == "Received"){
-    paypalContainer.innerHTML = '<div>🔵Paypal result:'+resultCode+'<br> Adyen PSP reference (Offer): '+pspRef+'</div>';
-  }
-  else {
-    paypalContainer.innerHTML = '<div>❌Paypal result'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
-  }
-}
-
-// Demo - Update server response container
-function showFinalResultPOS(response) {//response.SaleToPOIResponse
+function showFinalResultPOS(response) {
   var resultCode = null;
   var pspRef = null;
 
@@ -61,27 +21,21 @@ function showFinalResultPOS(response) {//response.SaleToPOIResponse
 
   var textToShow;
   if (resultCode == "Success"){
-    textToShow =
-    "<div class=\"adyen-checkout__status adyen-checkout__status--success\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Successful\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Successful<\/span>\r\n<\/div>"
-
+    textToShow = authorisedHTML
   }
   else if (resultCode == "Reject"){
-    textToShow =
-    "<div class=\"adyen-checkout__status adyen-checkout__status--error\">\r\n    <img class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n    src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/error.svg\"\r\n    alt=\"Your transaction was REFUSED!\" height=\"88\">\r\n  <span class=\"adyen-checkout__status__text\">Your transaction was REFUSED!<\/span>"
-
+    textToShow = errorHTML
   }
   else if (resultCode == "Failure"){
-    textToShow =
-    "<div class=\"adyen-checkout__status adyen-checkout__status--warning\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https://i7.uihere.com/icons/199/579/754/alarm-processing-205473b2b36b8b4806293cd70da06f49.png\"\r\n  alt=\"Payment is PENDING, you will receive and update soon\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
-
+    textToShow = warningHTML
   }
   else {
     textToShow = '<div>❌Payment result'+resultCode+'<br> Adyen PSP reference: '+pspRef+'</div>';
   }
 
-  if (dropinContainer == null){
-     dropinContainer = document.getElementById("dropin-container");
-  }
+  //if (dropinContainer == null){
+  var dropinContainer = document.getElementById("dropin-container");
+  //}
 
   dropinContainer.innerHTML = textToShow;
 }
@@ -93,37 +47,33 @@ function showFinalResultDropin(response) {
 
   var textToShow;
   if (resultCode == "Authorised"){
-       textToShow =
-       "<div class=\"adyen-checkout__status adyen-checkout__status--success\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Successful\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Successful<\/span>\r\n<\/div>"
+       textToShow = authorisedHTML
   }
   else if (resultCode == "Cancelled"){
-       textToShow =
-       "<div class=\"adyen-checkout__status adyen-checkout__status--error\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/success.svg\"\r\n  alt=\"Payment Cancelled by shopper\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
-  }
+       textToShow = errorHTML  }
   else if (resultCode == "Received"){
-       textToShow =
-       "<div class=\"adyen-checkout__status adyen-checkout__status--warning\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https://i7.uihere.com/icons/199/579/754/alarm-processing-205473b2b36b8b4806293cd70da06f49.png\"\r\n  alt=\"Payment RECEIVED, you will receive and update soon\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
+       textToShow = warningHTML
   }
   else if (resultCode == "Pending"){
-       textToShow =
-       "<div class=\"adyen-checkout__status adyen-checkout__status--warning\">\r\n  <img height=\"88\" class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n  src=\"https://i7.uihere.com/icons/199/579/754/alarm-processing-205473b2b36b8b4806293cd70da06f49.png\"\r\n  alt=\"Payment is PENDING, you will receive and update soon\">\r\n  <span class=\"adyen-checkout__status__text\">Payment Cancelled<\/span>\r\n<\/div>"
+       textToShow = warningHTML
   }
   else if (resultCode == "Refused"){
-       textToShow =
-       "<div class=\"adyen-checkout__status adyen-checkout__status--error\">\r\n    <img class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n    src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/error.svg\"\r\n    alt=\"Your transaction was REFUSED!\" height=\"88\">\r\n  <span class=\"adyen-checkout__status__text\">Your transaction was REFUSED!<\/span>"
+       textToShow = errorHTML
   }
   else {
-      textToShow =
-      "<div class=\"adyen-checkout__status adyen-checkout__status--error\">\r\n    <img class=\"adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded\"\r\n    src=\"https:\/\/checkoutshopper-test.adyen.com\/checkoutshopper\/images\/components\/error.svg\"\r\n    alt=\"An unknown error occurred\" height=\"88\">\r\n  <span class=\"adyen-checkout__status__text\">An unknown error occurred<\/span>"
+      textToShow = errorHTML
   }
 
-  if (dropinContainer == null){
-     dropinContainer = document.getElementById("dropin-container");
-  }
-
+  var dropinContainer = document.getElementById("dropin-container");
   dropinContainer.innerHTML = textToShow;
-}
 
+  //Show PSP reference
+  var resultContainer = document.getElementById("payment-result");
+  resultContainer.innerHTML = '<div> Adyen PSP reference: '+pspRef+'</div>';
+  //Show whole response
+  var responseContainer = document.getElementById("payment-result");
+  responseContainer.innerHTML ='<div> RESPONSE'+response+'</div>';
+}
 
 // Demo - Copy Source Code Examples
 document.querySelectorAll('.copy-sample-code').forEach(c => {
