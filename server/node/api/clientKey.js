@@ -4,7 +4,6 @@ const handleCallback = require('../utils/handleCallback');
 
 module.exports = (res, request) => {
   const params = getPostParameters('clientKey', request);
-  const clientkey = process.env.CLIENTKEY;
-  ///post(params, (error, response, body) => handleCallback({ error, response, body }, res));
-
+  const res = process.env.CLIENT_KEY;
+  //post(params, (error, response, body) => handleCallback({ error, response, body }, res));
 };
