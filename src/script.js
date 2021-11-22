@@ -347,8 +347,8 @@ const SelectTerminal = {
                   this.terminals.push(response.uniqueTerminalIds[i]) ;
               }
             }
-            else
-              this.terminals.push("There are no connnected terminals in your Store.") ;
+            else return null;
+              //this.terminals.push("There are no connnected terminals in your Store.") ;
           })
     },
     methods: {

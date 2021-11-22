@@ -8,5 +8,14 @@ var selectTerminal = `
    <a style="font-size:50px;color:white" href="#">{{choice}}</a><br />
 </div>
 </div>
+
+
+
+<div v-if="!terminals.length">There are no connnected terminals in your Store.</div>
+<div v-else class="b" v-for="(choice, key) in terminals" @click="addToCart(choice);next()" >
+   <a style="font-size:50px;color:white" href="#">{{choice}}</a><br />
+</div>
+
+
 </base-layout>
 `
