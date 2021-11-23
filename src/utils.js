@@ -362,8 +362,7 @@ const generatePayByLinkUrl = (paymentData) => {
     return httpPostnoJson('paymentLinks', paymentRequestPBL)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
-return response
-            //return JSON.parse(response).url;
+            return JSON.parse(response).url;
         })
         .catch(error => {
             console.log('error on paymentLinks' + error)
@@ -412,9 +411,17 @@ const connectedTerminals = (terminalID) => {
         });
 };
 
-const getClientKey = () =>
-    httpPostnoJson('clientKey')
-    .then(response => {
-        return response
-    })
-    .catch(console.error);
+ const getClientKey = () => {
+     if (window.location.origin.includes("jogotech", 1)) {
+         return "test_IPXP2NJCN5CW7NUYLN2T5DH6RILHZ24F"
+     } else {
+         return "test_E3XT7DO34FETRCDF4XFV5XX2GMRW3TQZ"
+     }
+ }
+
+// const getClientKey = () =>
+//     httpPostnoJson('clientKey')
+//     .then(response => {
+//         return response
+//     })
+//     .catch(console.error);
