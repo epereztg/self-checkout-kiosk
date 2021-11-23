@@ -362,8 +362,8 @@ const generatePayByLinkUrl = (paymentData) => {
     return httpPostnoJson('paymentLinks', paymentRequestPBL)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
-
-            return JSON.parse(response).url;
+return response
+            //return JSON.parse(response).url;
         })
         .catch(error => {
             console.log('error on paymentLinks' + error)
