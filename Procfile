@@ -1,1 +1,1 @@
-web: php server/php 
+web: ./start.sh
