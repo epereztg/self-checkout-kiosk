@@ -14,7 +14,7 @@ require('api/terminalAPI.php');
 require('api/getTerminals.php');
 require('api/getTerminalDetails.php');
 require('api/connectedTerminals.php');
-require('api/clientKey.php');
+//require('api/clientKey.php');
 
 
 // Basic routing
