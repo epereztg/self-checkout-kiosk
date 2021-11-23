@@ -79,7 +79,7 @@ var paymentMethodsConfiguration = {
 
 var dropinComponent =
     paymentMethodsConfig.shopperReference = defaultShopperReference
-
+    var clientKey = getClientKey();
 getPaymentMethods().then(paymentMethodsResponse => {
 
     //var removePaymentMethods = ["facilypay_3x", "facilypay_4x", "klarna_account"];
@@ -159,7 +159,7 @@ getPaymentMethods().then(paymentMethodsResponse => {
         },
         environment: 'test',
         countryCode: getCountryCode(),
-        clientKey: getClientKey(),
+        clientKey: clientKey,
         paymentMethodsResponse: paymentMethodsResponse,
         removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
         enableStoreDetails: true
