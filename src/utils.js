@@ -297,15 +297,11 @@ const makePayment = (paymentMethod, config = {}) => {
     paymentRequest.shopperReference = defaultShopperReference;
 
     //if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
-    //  paymentRequest.shopperInteraction = 'ContAuth';
+    paymentRequest.shopperInteraction = 'Ecommerce';
 
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
-
-            // if (document.getElementById('responseFromPayments') !== null){
-            //     document.getElementById('responseFromPayments').innerHTML = JSON.stringify(response);
-            // }
             return response;
         })
         .catch(error => {

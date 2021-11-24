@@ -80,9 +80,7 @@ var paymentMethodsConfiguration = {
 var dropinComponent =
     paymentMethodsConfig.shopperReference = defaultShopperReference
     //var clientKey = "test_IPXP2NJCN5CW7NUYLN2T5DH6RILHZ24F"
-getPaymentMethods().then(paymentMethodsResponse => {
-
-    //var removePaymentMethods = ["facilypay_3x", "facilypay_4x", "klarna_account"];
+    getPaymentMethods().then(paymentMethodsResponse => {
     // 1. Create an instance of AdyenCheckout
     const checkout = new AdyenCheckout({
         paymentMethodsConfiguration: paymentMethodsConfiguration,
@@ -106,9 +104,6 @@ getPaymentMethods().then(paymentMethodsResponse => {
                             window.location = window.origin + "/#/orderCompleted"
 
                         }
-                        // } else {
-                        //     dropin.setStatus('error');
-                        // }
                     })
                     .catch(error => {
                         console.log('error on makePayment' + error)
@@ -159,7 +154,7 @@ getPaymentMethods().then(paymentMethodsResponse => {
         },
         environment: 'test',
         countryCode: getCountryCode(),
-        clientKey: "test_IPXP2NJCN5CW7NUYLN2T5DH6RILHZ24F",
+        clientKey: getClientKey(),
         paymentMethodsResponse: paymentMethodsResponse,
         removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
         enableStoreDetails: true
