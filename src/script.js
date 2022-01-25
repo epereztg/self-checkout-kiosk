@@ -6,7 +6,7 @@ const Home = {
             choices: {
                 kiosk: {
                     icon: "fa-hand-pointer",
-                    text: "Self Checkout Kiosk",
+                    text: "Self Checkout (POS)",
                     path: "#/kioskHome"
                 },
                 ecom: {
@@ -32,8 +32,8 @@ const Home = {
         localStorage.clear();
     },
     methods: {
-        async preNextAction() {
-        },
+        // async preNextAction() {
+        // },
         addToCart: function(text) {
           this.channel = text;
           localStorage.setItem("channelOption", text)

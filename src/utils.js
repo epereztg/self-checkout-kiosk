@@ -17,7 +17,7 @@ const localeflags = ['🇪🇸', '🇬🇧', '🇵🇹']
 
 const defaultOrigin = () => {
     if (window.location.origin.includes("heroku", 1)) {
-        return "https://coffeekiosk.herokuapp.com/#/checkout"
+        return "https://self-checkout-demo.herokuapp.com/#/checkout"
     } else {
         return "http://localhost:3000/#/checkout"
     }
@@ -25,7 +25,7 @@ const defaultOrigin = () => {
 
 const defaultUrl = (type) => {
     if (window.location.origin.includes("heroku", 1)) {
-        return "https://coffeekiosk.herokuapp.com/#/checkout"
+        return "https://self-checkout-demo.herokuapp.com/#/checkout"
     } else {
         if (type == "scheme") return "http://localhost:3000/fallbackthreedone"
         else return window.location.href
@@ -278,6 +278,73 @@ const makePOSPayment = (paymentMethod, config = {}) => {
         });
 };
 
+
+var klarna = {
+   "amount" : {
+      "value" : 1100,
+      "currency" : "CHF"
+   },
+   "billingAddress" : {
+      "city" : "Lausanne",
+      "country" : "CH",
+      "houseNumberOrName" : "Rue Centrale 12",
+      "postalCode" : "1003",
+      "stateOrProvince" : "",
+      "street" : "Rue Centrale 12"
+   },
+   "channel" : "Web",
+   "countryCode" : "CH",
+   "deliveryAddress" : {
+      "city" : "Lausanne",
+      "country" : "CH",
+      "houseNumberOrName" : "Rue Centrale 12",
+      "postalCode" : "1003",
+      "stateOrProvince" : "",
+      "street" : "Rue Centrale 12"
+   },
+   "lineItems":[
+      {
+         "quantity":"1",
+         "amountExcludingTax":"331",
+         "taxPercentage":"2100",
+         "description":"Shoes",
+         "id":"Item #1",
+         "taxAmount":"69",
+         "amountIncludingTax":"400"
+      },
+      {
+         "quantity":"2",
+         "amountExcludingTax":"248",
+         "taxPercentage":"2100",
+         "description":"Socks",
+         "id":"Item #2",
+         "taxAmount":"52",
+         "amountIncludingTax":"300"
+      }
+   ],
+   "merchantAccount" : "ElenaPerez",
+   "paymentMethod" : {
+      "type" : "klarna"
+   },
+   "reference" : "*******57521",
+   "returnUrl" : "http://localhost:3000/#/checkout",
+   "shopperEmail" : "youremail@email.com",
+   "shopperIP" : "127.0.0.1",
+   "shopperLocale" : "en_CH",
+   "shopperName" : {
+      "lastName" : "autoLastName",
+      "firstName" : "autoFirstName"
+   },
+   "shopperReference" : "3091048",
+   "telephoneNumber" : "0041444433333",
+   "applicationInfo" : {
+      "adyenLibrary" : {
+         "name" : "adyen-java-api-library",
+         "version" : "17.0.0"
+      }
+   }
+}
+
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
     //const paymentsConfig = { ...config };
@@ -299,7 +366,7 @@ const makePayment = (paymentMethod, config = {}) => {
     //if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
     paymentRequest.shopperInteraction = 'Ecommerce';
 
-    return httpPost('payments', paymentRequest)
+    return httpPost('payments', klarna)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
             return response;

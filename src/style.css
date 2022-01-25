@@ -99,13 +99,13 @@ h1, h2, h3 {
 
  .contain main .home .b .icon {
   color: #FFFFFF;
-  font-size: 2em;
+  font-size: 1em;
   align-items: center;
   line-height: 1;
 }
 
 .contain main .home .b {
-  font-size: 2.5em;
+  /*font-size: 2.5em;*/
   align-items: center;
   line-height: 1;
 }
@@ -123,7 +123,7 @@ h1, h2, h3 {
 .contain main .size .icon {
  color: #0ABF53;
  /* padding-right: 30px; */
- font-size: 6em;
+ font-size: 2em;
  line-height: 1;
 }
 .contain main .model{
@@ -193,7 +193,7 @@ h1, h2, h3 {
 .contain main .options .b .icon {
   color: #0ABF53;
   /* padding-right: 30px; */
-  font-size: 12em;
+  font-size: 6em;
   line-height: 1;
 }
 
