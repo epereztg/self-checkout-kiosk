@@ -366,7 +366,7 @@ const makePayment = (paymentMethod, config = {}) => {
     //if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
     paymentRequest.shopperInteraction = 'Ecommerce';
 
-    return httpPost('payments', klarna)
+    return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
             return response;
