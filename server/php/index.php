@@ -14,6 +14,7 @@ require('api/terminalAPI.php');
 require('api/getTerminals.php');
 require('api/getTerminalDetails.php');
 require('api/connectedTerminals.php');
+require('api/sessions.php');
 //require('api/clientKey.php');
 
 
@@ -79,7 +80,10 @@ switch($request_uri[0]) {
         header('Content-Type: application/json');
         echo clientKey();
         break;
-
+    case '/sessions':
+        header('Content-Type: application/json');
+        echo initiateSessions();
+        break;
     default:
         return false;
 

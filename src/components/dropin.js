@@ -18,6 +18,27 @@ var paymentMethodsConfiguration = {
             value: getAmount()
         }
     },
+    boletobancario: { // Optional configuration for Boleto
+        personalDetailsRequired: false, //turn personalDetails section on/off
+        showEmailAddress: true, // allow shopper to specify their email address
+        socialSecurityNumber: '568.617.525-09',
+        data: {
+            socialSecurityNumber: '568.617.525-09',
+            shopperName: {
+                firstName: 'José',
+                lastName: 'Silva'
+            },
+            billingAddress: {
+                street: 'Rua Funcionarios',
+                houseNumberOrName: '952',
+                city: 'São Paulo',
+                postalCode: '04386040',
+                stateOrProvince: 'SP',
+                country: 'BR'
+            },
+            shopperEmail: 'elena.pereztoril@adyen.com'
+        }
+    },
     mbway: {
         data: {
             email: defaultShopperReference,
@@ -32,6 +53,11 @@ var paymentMethodsConfiguration = {
         onBinLookup: (binLookupInfo) => {
             console.log(binLookupInfo)
         },
+        type: 'scheme',
+    brands: ['mc', 'visa', 'amex', 'korean_local_card'],
+    configuration: {
+        koreanAuthenticationRequired: true
+    },
         hasHolderName: true,
         holderNameRequired: true,
         name: 'Pay with card',
@@ -73,9 +99,8 @@ var paymentMethodsConfiguration = {
         visibility: {
             billingAddress: "readOnly", // These fields will appear on the payment form, but the shopper can't edit them.
             deliveryAddress: "editable"
-        }
     }
-}
+}}
 
 var dropinComponent =
     paymentMethodsConfig.shopperReference = defaultShopperReference
@@ -156,7 +181,8 @@ var dropinComponent =
         countryCode: getCountryCode(),
         clientKey: getClientKey(),
         paymentMethodsResponse: paymentMethodsResponse,
-        removePaymentMethods: ['paysafecard', 'c_cash', 'paypal'],
+        removePaymentMethods: ['paysafecard', 'c_cash', 'paywithgoogle'],
+        //removePaymentMethods: ['scheme'],
         enableStoreDetails: true
     });
 
@@ -167,7 +193,7 @@ var dropinComponent =
     // 2. Create and mount the Component
     const dropin = checkout
         .create('dropin', {
-            billingAddressRequired: true,
+            billingAddressRequired: false,
             data: {
                 firstName: 'Testname'
             }

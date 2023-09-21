@@ -1,19 +1,21 @@
 const defaultCurrency = localStorage.getItem('defaultCurrency') != null ? localStorage.getItem('defaultCurrency') : 'EUR';
 const defaultCountry = localStorage.getItem('defaultCountry') != null ? localStorage.getItem('defaultCountry') : 'ES';
-const defaultLocale = localStorage.getItem('defaultLocale') != null ? localStorage.getItem('defaultLocale') : 'en-GB';
-const defaultAmount = Math.floor(Math.random() * 100000)
+const defaultLocale = localStorage.getItem('defaultLocale') != null ? localStorage.getItem('defaultLocale') : 'es-ES';
+//const defaultAmount = Math.floor(Math.random() * 100000)
+const defaultAmount = 1000
+
 const defaultShopperReference = localStorage.getItem('shopperReference') != null ? localStorage.getItem('shopperReference') : 'mail@adyen.com'
 const defaultRequest = localStorage.getItem('requestToPayments') != null ? localStorage.getItem('requestToPayments') : null
 const defaultShopperStatement = "test_c1"
 
 const defaultTerminal = 'S1EL-000150203407529'
 
-const countries = ['ES', 'BE', 'NO', 'MX', 'NL', 'PT', 'AT', 'SE', 'DE', 'FR', 'CN', 'KR', 'AU', 'CH', 'GB']
-const countryNames = ['Spain', 'Belgium', 'Norway', 'Mexico', 'Netherlands', 'Portugal', 'Austria', 'Sweden', 'Germany', 'France', 'China', 'Korea', 'Australia', 'Switzerland', 'UK']
-const locale = ['es-ES', 'en-GB', 'pt-PT']
-const currencies = ['EUR', 'GBP', 'USD', 'CNY', 'SEK', 'MXN', 'NOK', 'KRW', 'AUD']
-const flags = ['🇪🇸', '🇧🇪', '🇳🇴', '🇲🇽', '🇳🇱', '🇵🇹', '🇦🇹', '🇸🇪', '🇩🇪', '🇫🇷', '🇨🇳', '🇰🇷', '🇦🇺', '🇨🇭', '🇬🇧']
-const localeflags = ['🇪🇸', '🇬🇧', '🇵🇹']
+const countries = ['ES', 'BE', 'NO', 'MX', 'NL', 'PT', 'AT', 'SE', 'DE', 'FR', 'CN', 'KR', 'AU', 'CH', 'GB', 'BR','PL']
+const countryNames = ['Spain', 'Belgium', 'Norway', 'Mexico', 'Netherlands', 'Portugal', 'Austria', 'Sweden', 'Germany', 'France', 'China', 'Korea', 'Australia', 'Switzerland', 'UK', 'Brazil', 'Poland']
+const locale = ['es-ES', 'en-GB', 'pt-BR', 'de-DE']
+const currencies = ['EUR', 'GBP', 'USD', 'CNY', 'SEK', 'MXN', 'NOK', 'KRW', 'AUD', 'BRL', 'CHF','PLN']
+const flags = ['🇪🇸', '🇧🇪', '🇳🇴', '🇲🇽', '🇳🇱', '🇵🇹', '🇦🇹', '🇸🇪', '🇩🇪', '🇫🇷', '🇨🇳', '🇰🇷', '🇦🇺', '🇨🇭', '🇬🇧', '🇧🇷','🇵🇱']
+const localeflags = ['🇪🇸', '🇬🇧', '🇵🇹', '🇩🇪']
 
 const defaultOrigin = () => {
     if (window.location.origin.includes("heroku", 1)) {
@@ -150,7 +152,8 @@ const paymentsDefaultConfig = {
     shopperStatement: defaultShopperStatement,
     shopperIP: '127.0.0.1',
     additionalData: {
-        allow3DS2: true
+        allow3DS2: true,
+        customMpiWrapper: false
     },
     billingAddress: { //i.e. required for AfterPay
         country: 'ES',
@@ -173,31 +176,33 @@ const paymentsDefaultConfig = {
         stateOrProvince: 'ES',
         postalCode: '28001'
     },
-    lineItems: [{
-            amountExcludingTax: "9836",
-            taxAmount: "2164",
-            description: "TEST 1927",
-            id: "WC00018_ARE000_1007_0287S_100",
-            quantity: "2",
-            taxCategory: "None",
-            taxPercentage: "2200"
-        },
-        {
-            amountExcludingTax: "0",
-            taxAmount: "0",
-            description: "STANDARD_SHIPPING",
-            id: "4f3dd176c464c96945c18bdc71",
-            quantity: "1",
-            taxCategory: "None",
-            taxPercentage: "0"
-        }
-    ],
+
     threeDS2RequestData: {
         deviceChannel: "browser",
         notificationURL: defaultUrl
     }
 };
 
+//
+// lineItems: [{
+//         amountExcludingTax: "9836",
+//         taxAmount: "2164",
+//         description: "TEST 1927",
+//         id: "WC00018_ARE000_1007_0287S_100",
+//         quantity: "2",
+//         taxCategory: "None",
+//         taxPercentage: "2200"
+//     },
+//     {
+//         amountExcludingTax: "0",
+//         taxAmount: "0",
+//         description: "STANDARD_SHIPPING",
+//         id: "4f3dd176c464c96945c18bdc71",
+//         quantity: "1",
+//         taxCategory: "None",
+//         taxPercentage: "0"
+//     }
+// ],
 const httpPostRaw = (endpoint, data) =>
     fetch(`/${endpoint}`, {
         method: 'POST',
@@ -279,71 +284,29 @@ const makePOSPayment = (paymentMethod, config = {}) => {
 };
 
 
-var klarna = {
-   "amount" : {
-      "value" : 1100,
-      "currency" : "CHF"
-   },
-   "billingAddress" : {
-      "city" : "Lausanne",
-      "country" : "CH",
-      "houseNumberOrName" : "Rue Centrale 12",
-      "postalCode" : "1003",
-      "stateOrProvince" : "",
-      "street" : "Rue Centrale 12"
-   },
-   "channel" : "Web",
-   "countryCode" : "CH",
-   "deliveryAddress" : {
-      "city" : "Lausanne",
-      "country" : "CH",
-      "houseNumberOrName" : "Rue Centrale 12",
-      "postalCode" : "1003",
-      "stateOrProvince" : "",
-      "street" : "Rue Centrale 12"
-   },
-   "lineItems":[
-      {
-         "quantity":"1",
-         "amountExcludingTax":"331",
-         "taxPercentage":"2100",
-         "description":"Shoes",
-         "id":"Item #1",
-         "taxAmount":"69",
-         "amountIncludingTax":"400"
-      },
-      {
-         "quantity":"2",
-         "amountExcludingTax":"248",
-         "taxPercentage":"2100",
-         "description":"Socks",
-         "id":"Item #2",
-         "taxAmount":"52",
-         "amountIncludingTax":"300"
-      }
-   ],
-   "merchantAccount" : "ElenaPerez",
-   "paymentMethod" : {
-      "type" : "klarna"
-   },
-   "reference" : "*******57521",
-   "returnUrl" : "http://localhost:3000/#/checkout",
-   "shopperEmail" : "youremail@email.com",
-   "shopperIP" : "127.0.0.1",
-   "shopperLocale" : "en_CH",
-   "shopperName" : {
-      "lastName" : "autoLastName",
-      "firstName" : "autoFirstName"
-   },
-   "shopperReference" : "3091048",
-   "telephoneNumber" : "0041444433333",
-   "applicationInfo" : {
-      "adyenLibrary" : {
-         "name" : "adyen-java-api-library",
-         "version" : "17.0.0"
-      }
-   }
+ var sample = {
+    amount: {
+        value: 0,
+        currency: "EUR"
+    },
+    paymentMethod: {
+        type : "scheme",
+        encryptedCardNumber : "test_5454545454545454",
+        encryptedExpiryMonth : "test_03",
+        encryptedExpiryYear : "test_2030",
+        encryptedSecurityCode: "test_737"
+    },
+    storePaymentMethod: true,
+    shopperInteraction: "Ecommerce",
+    recurringProcessingModel: "Subscription",
+    merchantAccount: "ElenaPerez",
+    reference: "Store card for Subscription",
+    shopperReference: "last@shopper.com",
+    origin : "http://localhost:3000/",
+    returnUrl : "http://localhost:3000/"
 }
+
+
 
 // Posts a new payment into the local server
 const makePayment = (paymentMethod, config = {}) => {
@@ -360,12 +323,12 @@ const makePayment = (paymentMethod, config = {}) => {
     paymentRequest.amount.value = parseInt(getAmount());
     paymentRequest.amount.currency = getCurrencyCode();
     paymentRequest.returnUrl = defaultUrl(paymentMethod.paymentMethod.type);
-    paymentRequest.origin = defaultOrigin();
+    //paymentRequest.origin = defaultOrigin();
     paymentRequest.shopperReference = defaultShopperReference;
 
     //if (paymentRequest.paymentMethod.storedPaymentMethodId != null)
     paymentRequest.shopperInteraction = 'Ecommerce';
-
+//paymentRequest.socialSecurityNumber = '568.617.525-09';
     return httpPost('payments', paymentRequest)
         .then(response => {
             if (response.error) throw 'Payment initiation failed';
@@ -482,9 +445,13 @@ const connectedTerminals = (terminalID) => {
      }
  }
 
-// const getClientKey = () =>
-//     httpPostnoJson('clientKey')
-//     .then(response => {
-//         return response
-//     })
-//     .catch(console.error);
+//Simplified dropin getSession
+ const getSession = () =>
+ httpPost('sessions')
+ .then(response => {
+     var session = response;//Object.keys(response.sessionData)[0];
+
+     if (response.error || !response.sessionData) throw 'No sessionData available';
+     else return session
+ }).then()
+ .catch(console.error);
